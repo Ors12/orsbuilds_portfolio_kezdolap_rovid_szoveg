@@ -1,0 +1,4 @@
+# A helyi SMTP-jelszófájl közvetlen HTTP-elérése tiltva.
+<Files "smtp.local.php">
+    Require all denied
+</Files>

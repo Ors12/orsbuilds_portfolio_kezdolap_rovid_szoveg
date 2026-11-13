@@ -1,0 +1,37 @@
+ORSBUILDS – JAVÍTOTT SZERVEROLDALI FÁJLOK
+========================================
+
+A ZIP-ben az api/ mappa öt javított PHP-fájlja található.
+
+TELEPÍTÉS
+---------
+1. A weboldal gyökérkönyvtárában (ahol a szolgaltatasok.html található) lévő api mappa tartalmát cseréld le a ZIP api/ mappájának tartalmára.
+2. Az útvonalak maradjanak változatlanok: api/submit.php, api/availability.php stb.
+3. A weboldal gyökérkönyvtárában lévő composer.json maradjon meg.
+4. A PHPMailer telepítéséhez a weboldal gyökérkönyvtárában futtasd: composer install --no-dev --optimize-autoloader
+   Ennek eredményeként a vendor/autoload.php fájlnak léteznie kell.
+5. A Rackhoston válassz támogatott PHP 8.x verziót. Az időpontfoglaláshoz a PDO és PDO_SQLITE PHP-bővítmény szükséges.
+
+ADATBÁZIS
+---------
+- Alapértelmezésben SQLite-ot használ, tehát nem kell MySQL adatbázist létrehozni.
+- Az adatbázis fájlja a webes gyökérkönyvtáron KÍVÜL, az orsbuilds_private/bookings.sqlite útvonalon jön létre.
+- A PHP-folyamatnak írási jogosultsággal kell rendelkeznie a webes gyökérkönyvtárat tartalmazó szülőkönyvtárban.
+- Ha a tárhely nem engedélyezi a PDO_SQLITE modult, az időpontfoglalás nem tud elindulni; ezt a Rackhost tárhelyen ellenőrizni kell.
+
+E-MAIL
+------
+A foglalás adatbázisba mentése nem függ az SMTP-től. Ha az SMTP nincs beállítva vagy az e-mailküldés hibás, a foglalás akkor is megmarad, de az értesítő e-mail nem megy ki.
+Az e-mailküldéshez a Rackhoston beállított SMTP-adatokat környezeti változóként kell megadni:
+- ORSBUILDS_SMTP_HOST
+- ORSBUILDS_SMTP_USERNAME
+- ORSBUILDS_SMTP_PASSWORD
+- ORSBUILDS_SMTP_FROM
+- ORSBUILDS_SMTP_PORT (alapértelmezés: 587)
+- ORSBUILDS_SMTP_ENCRYPTION (tls vagy ssl; alapértelmezés: tls)
+
+A foglalásokat az info.orsbuilds@gmail.com címre küldi az admin értesítés.
+
+FONTOS TESZT
+------------
+A PHP-fájlok szintaktikai ellenőrzése sikeres. A fejlesztői ellenőrző környezetben nem volt elérhető PDO_SQLITE meghajtó, ezért valódi adatbázis- és SMTP-integrációs tesztet itt nem lehetett futtatni. A Rackhostra feltöltés után próba-foglalással ellenőrizd az adatbázis mentését és az e-mailt.

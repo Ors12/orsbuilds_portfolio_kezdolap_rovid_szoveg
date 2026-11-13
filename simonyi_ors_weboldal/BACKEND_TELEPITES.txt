@@ -1,0 +1,36 @@
+orsbuilds – PHP űrlap backend
+
+MIT CSINÁL?
+- kapcsolatfelvételi űrlap: api/submit.php -> info.orsbuilds@gmail.com
+- időpontfoglalás: api/availability.php mutatja a MySQL-adatbázis alapján szabad időpontokat
+- a foglalás adatbázisba kerül, a rendszer mentés előtt ismét ellenőrzi az ütközéseket
+- foglalás után külön értesítő e-mail megy az info.orsbuilds@gmail.com címre és visszaigazolás az ügyfélnek
+- szerveroldali mezőellenőrzés, azonos eredetű kérések ellenőrzése, honeypot és zárolással védett IP-korlát
+
+TELEPÍTÉS
+1. PHP-támogatás és PDO szükséges. Ha az ORSBUILDS_DB_DSN, ORSBUILDS_DB_USER és ORSBUILDS_DB_PASSWORD változók MySQL-kapcsolatot tartalmaznak, a rendszer MySQL/MariaDB-adatbázist használ; a bookings táblához tábla-létrehozási jogosultság kell. Ha nincs MySQL-kapcsolat beállítva, SQLite-adatbázist használ a rendszer a PHP rendszerideiglenes könyvtárában. SQLite-hoz a pdo_sqlite kiterjesztés szükséges. Éles MySQL-tárhelynél a MySQL-kapcsolat beállítását javasoljuk, mert a szolgáltató a rendszerideiglenes SQLite-adatokat törölheti.
+2. A projekt könyvtárában telepítsd az e-mail-küldő függőséget: composer install --no-dev --optimize-autoloader. A vendor könyvtárat is töltsd fel a tárhelyre.
+3. A tárhely vezérlőpultján vagy biztonságos környezeti változóként állítsd be:
+   - ORSBUILDS_DB_DSN=mysql:host=localhost;dbname=ADATBAZIS_NEVE;charset=utf8mb4 (MySQL használatakor; beállítás nélkül SQLite az alapértelmezett)
+   - ORSBUILDS_DB_USER és ORSBUILDS_DB_PASSWORD
+   - ORSBUILDS_SMTP_HOST, ORSBUILDS_SMTP_PORT (TLS-hez általában 587), ORSBUILDS_SMTP_ENCRYPTION (tls vagy ssl)
+   - ORSBUILDS_SMTP_USERNAME, ORSBUILDS_SMTP_PASSWORD és ORSBUILDS_SMTP_FROM
+   Az SMTP-feladó címének a hitelesített postafiókhoz kell tartoznia. A titkos adatokat ne írd a forráskódba. A foglalási értesítések címzettje az api/config.php fájlban beállított info.orsbuilds@gmail.com.
+4. A nyitvatartás, a kezdési időköz és az alap időtartamok az api/config.php fájl booking részében módosíthatók. Alapbeállítás: Europe/Budapest, hétfő–péntek 09:00–17:00, 30 perces kezdési időköz, 90 napra előre. Alap időtartamok: bemutatkozó oldal 30, céges weboldal 45, webshop 60, egyedi fejlesztés 45, karbantartás 30, egyéb 30 perc. A dátumválasztó 90 napos korlátját módosításkor a script.js fájlban is igazítsd.
+5. Élesben kizárólag HTTPS-t használj. Az Apache-tárhelyhez mellékelt .htaccess tiltja a könyvtárlistázást, védi a konfigurációkat és a vendor könyvtárat. Nginx esetén a tárhely konfigurációjában kell ugyanezeket beállítani; a .htaccess ott nem érvényes.
+6. Teszteld a foglalást, az ütköző időpont elutasítását, az adminisztrátori értesítést és az ügyfélnek küldött visszaigazolást.
+
+FONTOS
+- Statikus tárhelyen (pl. GitHub Pages) a PHP nem fut; PHP-t támogató webtárhely kell.
+- A SMTP-szerver általi elfogadás nem garantálja a kézbesítést; az SPF/DKIM/DMARC beállításokat is ellenőrizd.
+- A foglaltságot a rendszer a saját adatbázisában tárolt foglalásokhoz viszonyítja; külső naptár (például Google Naptár) nincs összekötve.
+- A PHP-folyamatnak el kell érnie a MySQL-adatbázist és a megadott SMTP-szervert.
+- Az adatkezelési tájékoztatóban tüntesd fel a MySQL-adatbázisban történő tárolást, e-mailben történő értesítést és a megőrzési időt; a jelenlegi PDF-et élesítés előtt frissítsd.
+- Az IP-alapú korlátozás a PHP-tárhely ideiglenes könyvtárát használja; ennek írhatónak kell lennie. Proxy mögött gondoskodj róla, hogy a PHP megbízhatóan érzékelje a HTTPS-kapcsolatot.
+- A kódos védelem nem helyettesíti a tárhely és a PHP naprakészen tartását, a rendszeres mentést, az erős tárhelyfiók-jelszót és a szolgáltató tűzfalát.
+
+
+KERESŐOPTIMALIZÁLÁS ÉS ÉLESÍTÉS
+- A nem végleges sajat-domain.hu canonical címeket eltávolítottam. Éles domain esetén minden oldalhoz a saját végleges HTTPS URL-t érdemes canonical címként megadni.
+- A szolgáltatások oldalon a gyakori kérdések strukturált FAQ-adatot is kaptak. A keresőmotorok ennek megjelenítéséről saját döntésük alapján határoznak.
+- Az oldalakon billentyűzettel elérhető tartalomra ugrás, olvasási folyamatjelző és vissza a tetejére gomb is működik.

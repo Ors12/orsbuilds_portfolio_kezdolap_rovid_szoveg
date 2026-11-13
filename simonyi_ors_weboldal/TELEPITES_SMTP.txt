@@ -1,0 +1,24 @@
+ORSBUILDS – GMAIL SMTP BEÁLLÍTÁS XAMPP ALATT
+
+1) Másold az api mappa fájljait a weboldalad meglévő api mappájába (készíts előtte biztonsági másolatot).
+2) A weboldal projektmappájában, ott ahol az index.html van, legyen a composer.json.
+3) Nyiss Parancssort (CMD), és lépj a projektmappába, például:
+   cd C:\xampp\htdocs\orsbuilds
+4) Telepítsd a PHPMailer csomagot:
+   composer install
+   Ha nincs Composer telepítve, telepítsd innen: https://getcomposer.org/Composer-Setup.exe
+   A telepítés után zárd be és nyisd újra a CMD-t.
+5) Az api mappában nevezd át az smtp.local.example.php fájlt smtp.local.php névre.
+6) Nyisd meg az api/smtp.local.php fájlt, és a password értékéhez írd be a Google-fiókhoz létrehozott 16 karakteres alkalmazásjelszót. A szóközöket hagyd ki. Ne küldd el senkinek, ne töltsd fel nyilvános GitHubra.
+7) Google-fiókban előbb legyen bekapcsolva a kétlépcsős azonosítás, majd itt hozz létre alkalmazásjelszót:
+   https://myaccount.google.com/apppasswords
+8) Ellenőrizd, hogy a PHP OpenSSL bővítmény aktív-e az XAMPP php.ini fájljában (extension=openssl). Módosítás után indítsd újra az Apache-ot.
+9) A PHPMailer autoload útvonala a projekt gyökerében létrejövő vendor/autoload.php fájlra mutat. A vendor mappát ne az api mappába tedd.
+10) Próbáld ki először a kapcsolatfelvételi űrlapot, majd az időpontfoglalást. Mindkét e-mailnek az info.orsbuilds@gmail.com címre kell megérkeznie; az ügyfél-visszaigazolás az ügyfél által megadott címre megy.
+
+FONTOS:
+- A kapcsolatfelvétel és a foglalás most ugyanazt a Gmail SMTP-beállítást használja.
+- Az adatbázis-foglalás akkor is megmarad, ha az e-mail küldése sikertelen.
+- Ha nem érkezik levél, nézd meg a spam mappát, majd az XAMPP Apache error.log fájlt: C:\xampp\apache\logs\error.log
+- A Gmail fiók normál jelszavát ne használd; kizárólag Google alkalmazásjelszót.
+- A smtp.local.php titkos adatot tartalmaz. Ne tedd közzé és ne küldd el.

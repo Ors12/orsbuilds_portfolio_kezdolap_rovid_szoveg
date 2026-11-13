@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://sajat-domain.hu/sitemap.xml

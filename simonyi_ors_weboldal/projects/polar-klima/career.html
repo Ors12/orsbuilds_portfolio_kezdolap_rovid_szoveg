@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karrier | PolarKlíma</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif;}
+body{background:#f4f8fc;color:#333;line-height:1.6;}
+
+header{
+  background:linear-gradient(135deg,#0a4d8c,#00c6ff);
+  color:white;
+  padding:120px 20px;
+  text-align:center;
+}
+header h1{
+  font-size:48px;
+  margin-bottom:15px;
+}
+header p{
+  font-size:20px;
+  opacity:.95;
+}
+
+nav{
+  background:#083766;
+  padding:15px;
+  text-align:center;
+}
+nav a{
+  color:white;
+  text-decoration:none;
+  font-weight:bold;
+  font-size:16px;
+}
+
+section{
+  max-width:1200px;
+  margin:auto;
+  padding:80px 20px;
+}
+
+.jobs{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:35px;
+}
+
+.job-card{
+  background:white;
+  border-radius:20px;
+  padding:35px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.12);
+  position:relative;
+  overflow:hidden;
+}
+.job-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,rgba(0,198,255,0.08),rgba(10,77,140,0.08));
+  z-index:0;
+}
+.job-card *{position:relative;z-index:1;}
+
+.job-card h3{
+  font-size:26px;
+  margin-bottom:10px;
+  color:#0a4d8c;
+}
+.job-card p{
+  margin-bottom:15px;
+  font-size:15px;
+}
+.job-card ul{
+  margin-left:20px;
+  margin-bottom:20px;
+}
+
+.badge{
+  display:inline-block;
+  background:#0a4d8c;
+  color:white;
+  padding:6px 14px;
+  border-radius:20px;
+  font-size:13px;
+  margin-bottom:15px;
+}
+
+.btn{
+  display:inline-block;
+  background:linear-gradient(135deg,#0a4d8c,#00c6ff);
+  color:white;
+  padding:14px 28px;
+  border-radius:30px;
+  text-decoration:none;
+  font-weight:bold;
+  transition:.3s;
+}
+.btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+footer{
+  background:#083766;
+  color:white;
+  text-align:center;
+  padding:30px;
+  margin-top:60px;
+}
+
+@media(max-width:768px){
+  header h1{font-size:36px;}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🚀 Karrier a PolarKlímánál</h1>
+  <p>Fiatalos csapat, stabil háttér, valódi fejlődési lehetőség</p>
+</header>
+
+<nav>
+  <a href="index.html">← Vissza a főoldalra</a>
+</nav>
+
+<section>
+<div class="jobs">
+
+  <!-- KLÍMASZERELŐ -->
+  <div class="job-card">
+    <span class="badge">🔧 Műszaki</span>
+    <h3>Klímaszerelő munkatárs</h3>
+    <p><strong>Helyszín:</strong> Pest megye</p>
+    <ul>
+      <li>Split klímák telepítése, karbantartása</li>
+      <li>Hibajavítás, szervizelés</li>
+      <li>Ügyfelekkel való kapcsolattartás</li>
+    </ul>
+    <ul>
+      <li>B kategóriás jogosítvány</li>
+      <li>Megbízhatóság, precizitás</li>
+      <li>Szakmai tapasztalat előny</li>
+    </ul>
+    <a href="mailto:karrier@polarklima.hu?subject=Jelentkezés - Klímaszerelő"
+       class="btn">Jelentkezem</a>
+  </div>
+
+  <!-- MARKETING -->
+  <div class="job-card">
+    <span class="badge">📣 Marketing</span>
+    <h3>Marketing asszisztens</h3>
+    <p><strong>Helyszín:</strong> Hibrid / Budapest</p>
+    <ul>
+      <li>Közösségi média tartalmak kezelése</li>
+      <li>Hirdetések előkészítése (Meta, Google)</li>
+      <li>Weboldal és kampányok támogatása</li>
+    </ul>
+    <ul>
+      <li>Kreatív gondolkodás</li>
+      <li>Alap marketing ismeretek</li>
+      <li>Canva / social tapasztalat előny</li>
+    </ul>
+    <a href="mailto:karrier@polarklima.hu?subject=Jelentkezés - Marketing asszisztens"
+       class="btn">Jelentkezem</a>
+  </div>
+
+  <!-- BESZERZŐ -->
+  <div class="job-card">
+    <span class="badge">📦 Logisztika</span>
+    <h3>Beszerző / anyagkoordinátor</h3>
+    <p><strong>Helyszín:</strong> Budapest / Pest megye</p>
+    <ul>
+      <li>Klímaberendezések és anyagok beszerzése</li>
+      <li>Beszállítókkal kapcsolattartás</li>
+      <li>Készletfigyelés, adminisztráció</li>
+    </ul>
+    <ul>
+      <li>Jó szervezőkészség</li>
+      <li>Precíz adminisztráció</li>
+      <li>Excel / admin tapasztalat előny</li>
+    </ul>
+    <a href="mailto:karrier@polarklima.hu?subject=Jelentkezés - Beszerző"
+       class="btn">Jelentkezem</a>
+  </div>
+
+</div>
+</section>
+
+<footer>
+<p>© 2026 PolarKlíma • Dolgozz velünk, építs jövőt</p>
+</footer>
+
+</body>
+</html>

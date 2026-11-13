@@ -1,0 +1,42 @@
+# orsbuilds – Apache alapú tárhely biztonsági beállításai
+Options -Indexes -MultiViews
+
+# Csak HTTPS használatakor küldjön HSTS fejlécet.
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "DENY"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+    Header always set Cross-Origin-Opener-Policy "same-origin"
+    Header always set Strict-Transport-Security "max-age=31536000" "expr=%{HTTPS} == 'on'"
+    Header always set Content-Security-Policy "default-src 'self'; img-src 'self' data: https://images.unsplash.com; style-src 'self' 'unsafe-inline'; script-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests" env=PORTFOLIO_PAGE
+</IfModule>
+
+# HTML oldalakhoz CSP környezeti jelző.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^$ - [E=PORTFOLIO_PAGE:1]
+    RewriteRule ^[^/]+\\.html$ - [E=PORTFOLIO_PAGE:1]
+    # TRACE metódus tiltása.
+    RewriteCond %{REQUEST_METHOD} TRACE
+    RewriteRule .* - [F]
+</IfModule>
+
+# Érzékeny konfigurációk és belső PHP segédfájlok közvetlenül nem hívhatók.
+<FilesMatch "^(?:config|security|booking)\\.php$">
+    Require all denied
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+    RewriteRule ^vendor/ - [F,NC]
+</IfModule>
+
+# Rejtett fájlok, verziókezelési mappák, mentések és adatfájlok tiltása.
+<FilesMatch "(^\\.|\\.(?:ini|log|sql|bak|old|orig|save|swp|dist|env|yml|yaml|toml|conf|md))$">
+    Require all denied
+</FilesMatch>
+
+# A .git és hasonló belső könyvtárak ne legyenek kiszolgálhatók.
+<IfModule mod_rewrite.c>
+    RewriteRule "(^|/)\\.(git|svn|hg)(/|$)" - [F,NC]
+</IfModule>

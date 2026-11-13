@@ -1,0 +1,36 @@
+ORSBUILDS – SQLITE ADATBÁZIS TELEPÍTÉSE
+======================================
+
+A csomagban található adatbázis SQLite, tehát nem kell MySQL-adatbázist
+létrehozni. A bookings.sqlite egy üres, előre inicializált adatbázis;
+valódi foglalásokat még nem tartalmaz.
+
+A PHP backend config.php fájlja ezt az útvonalat használja:
+  a webes gyökérkönyvtár SZÜLŐKÖNYVTÁRA/orsbuilds_private/bookings.sqlite
+
+Példa:
+  /home/felhasznalo/public_html/          <- webes gyökérkönyvtár
+  /home/felhasznalo/orsbuilds_private/    <- privát adatkönyvtár
+  /home/felhasznalo/orsbuilds_private/bookings.sqlite
+
+TELEPÍTÉS RACKHOSTON
+--------------------
+1. Töltsd fel az api/ mappa PHP-fájljait a weboldalad api/ mappájába.
+2. A ZIP database/orsbuilds_private/ mappájából a bookings.sqlite fájlt
+   töltsd fel a webes gyökérkönyvtár SZÜLŐKÖNYVTÁRÁBAN lévő
+   orsbuilds_private/ mappába. Ha a mappa nem létezik, hozd létre.
+3. A PHP-folyamatnak írási/olvasási jogosultság kell a privát mappára és
+   az adatbázisfájlra. A mappa jogosultsága tipikusan 700, a fájlé 600,
+   ha a tárhely kezelőfelülete és PHP-felhasználója ezt támogatja.
+4. A Rackhoston ellenőrizd, hogy a PHP PDO és PDO_SQLITE bővítmény aktív.
+5. A PHP kód első futáskor ellenőrzi és szükség esetén létrehozza a
+   bookings táblát is. A foglalások automatikusan ide kerülnek.
+
+FONTOS
+------
+- A bookings.sqlite jelenleg üres adatbázis, nem tartalmaz korábbi foglalást.
+- A fejlesztői környezetben nem volt elérhető a PHP PDO_SQLITE modul,
+  ezért a PHP-s adatbázis-kapcsolatot Rackhoston kell élesben tesztelni.
+- A SQLite fájlt ne tedd nyilvánosan letölthető webes könyvtárba.
+- Rendszeresen készíts biztonsági másolatot a bookings.sqlite fájlról.
+- Az adatbázis mentése nem igényel SMTP-t; az e-mail külön beállítás.

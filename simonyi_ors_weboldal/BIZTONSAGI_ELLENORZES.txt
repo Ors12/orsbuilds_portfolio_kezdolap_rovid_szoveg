@@ -1,0 +1,40 @@
+orsbuilds – biztonsági ellenőrzés és telepítési teendők
+=====================================================
+
+A csomagban talált meglévő védelmek:
+- könyvtárlistázás tiltása;
+- biztonsági HTTP-fejlécek és HTML-oldalakra CSP;
+- konfigurációs fájl védelme;
+- POST-only űrlapvégpontok, méret- és mezőellenőrzés;
+- azonos eredet ellenőrzése, honeypot spamvédelem;
+- zárolással kezelt IP-alapú beküldési korlát;
+- e-mail címek és dátumok szerveroldali ellenőrzése.
+
+Mostani kiegészítések:
+- a config.php és security.php közvetlen HTTP-elérése tiltott;
+- a foglalási segédfájl és a Composer vendor könyvtár közvetlen HTTP-elérése tiltott;
+- további érzékeny fájlkiterjesztések és rejtett verziókezelési mappák tiltása;
+- TRACE HTTP-metódus tiltása;
+- MultiViews kikapcsolása.
+
+FONTOS KORLÁTOK
+- Ez nem garantál feltörhetetlenséget, és nem helyettesíti a tárhelyszolgáltató védelmét.
+- A .htaccess csak Apache tárhelyen működik; Nginx esetén a szolgáltatónál kell megfelelő szabályokat beállítani.
+- HTTPS/SSL tanúsítvány legyen bekapcsolva. A HSTS fejléc csak HTTPS-en kerül kiadásra.
+- Az SMTP-szerver általi levél-elfogadás nem garantálja a végső kézbesítést; SPF/DKIM/DMARC és a levéllogok ellenőrzése szükséges.
+- Az IP-korlát megkerülhető elosztott IP-címekkel; komolyabb forgalomnál szerveroldali WAF/rate limit ajánlott.
+- A ThermoFlow mappában lévő PHP fájlok a mintaprojekt űrlapjaihoz tartoznak, saját címre küldenek levelet. Ha a ThermoFlow demo már nem kell, a projects/thermoflow/contact_mail.php és booking_mail.php fájlokat élesítés előtt töröld vagy tiltsd le.
+- A foglalási rendszer MySQL-t használ, ha az be van állítva; ennek hiányában SQLite-adatbázisban, a PHP rendszerideiglenes könyvtárában tárolja az adatokat. Nincs adminisztrációs felület; lemondáshoz vagy kézi módosításhoz közvetlen adatbázis-hozzáférés szükséges.
+- A foglalás adatbázisba kerülése és az e-mail-küldés nem közös tranzakció. SMTP-hiba esetén a foglalás megmarad, és a rendszer ezt jelzi a beküldőnek.
+
+ÉLESÍTÉS ELŐTTI ELLENŐRZŐLISTA
+1. Használj egyedi, hosszú jelszót a tárhelyhez, FTP/SFTP-hez és domainregisztrátorhoz; ahol lehet, kapcsold be a kétlépcsős azonosítást.
+2. SFTP-t használj FTP helyett, és töröld a régi/használaton kívüli tárhelyfiókokat.
+3. Frissítsd a tárhely PHP-verzióját támogatott, naprakész verzióra.
+4. Állíts be automatikus napi tárhelymentést, és időnként próbáld ki a visszaállítást.
+5. Ne tölts fel .env, jelszó, adatbázis-dump, privát kulcs vagy mentési fájlokat a publikus webmappába.
+6. A tárhelyen ellenőrizd, hogy a .htaccess szabályok ténylegesen érvényesülnek-e. Nyisd meg közvetlenül az /api/config.php, /api/security.php és /api/booking.php címeket: 403 vagy 404 választ kell kapni, nem PHP-forrást.
+7. Ellenőrizd a HTTPS-t, a biztonsági fejléceket, a szabad időpontok listáját, az ütközésvédelmet, valamint mindkét foglalási e-mailt.
+8. Ha a szolgáltató kínál WAF/mod_security vagy DDoS-védelmet, kapcsold be.
+
+A kódot PHP szintaktikai ellenőrzéssel is ellenőrizd telepítéskor; ez nem helyettesíti az éles tárhelyen végzett biztonsági tesztet.
