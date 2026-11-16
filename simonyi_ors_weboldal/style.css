@@ -513,7 +513,7 @@ footer .foot{align-items:center}
  .process-step:hover,.skill-chip:hover,.skill-card:hover{transform:none}
 }
 
-/* Projektek: ügyfélmunkák és saját koncepciók elkülönítése */
+/*Projektek: ügyfélmunkák és saját koncepciók elkülönítése */
 .project-section{margin:42px 0 64px}
 .project-section-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:22px;margin:0 0 24px;padding-bottom:18px;border-bottom:1px solid rgba(116,207,184,.2)}
 .project-section-heading h2{margin:5px 0 9px}
@@ -526,6 +526,9 @@ footer .foot{align-items:center}
 .text-link{color:#76dfd0;text-decoration:none;font-weight:700;text-underline-offset:4px}
 .text-link:hover{text-decoration:underline;color:#a0f1e4}
 .project-type-label{display:inline-flex;align-self:flex-start;margin:15px 0 9px;padding:6px 10px;border:1px solid rgba(139,188,157,.25);border-radius:999px;background:rgba(113,158,125,.1);color:#bdd9bf;font:600 .7rem Arial,sans-serif;letter-spacing:.04em;text-transform:uppercase}
+.trainer-project-preview{display:grid;place-content:center;justify-items:center;gap:12px;background:radial-gradient(ellipse at center,rgba(61,204,177,.18),transparent 65%),linear-gradient(135deg,#17263b,#101827)}
+.trainer-project-mark{display:grid;place-items:center;width:58px;height:58px;border:1px solid rgba(121,226,206,.4);border-radius:18px;background:rgba(61,204,177,.12);color:#79e2ce;font-size:1.8rem}
+.trainer-coming-soon{padding:7px 12px;border:1px solid rgba(121,226,206,.3);border-radius:999px;background:rgba(11,16,32,.7);color:#a0f1e4;font:600 .75rem Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase}
 .project-section .grid{margin-top:0}
 @media(max-width:620px){.project-section{margin:32px 0 48px}.project-section-heading{align-items:flex-start;flex-direction:column;gap:12px}.client-empty-state{padding:22px;gap:14px}.empty-state-mark{flex-basis:40px;width:40px;height:40px}}
 
