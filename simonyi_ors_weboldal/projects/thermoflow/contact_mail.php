@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-require __DIR__ . '/../../api/security.php';
+require_once __DIR__ . '/../../api/security.php';
 setSecurityHeaders();
 header('Content-Type: text/plain; charset=UTF-8');
 

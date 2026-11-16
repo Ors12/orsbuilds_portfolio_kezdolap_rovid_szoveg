@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
-require __DIR__ . '/security.php';
-require __DIR__ . '/booking.php';
+require_once __DIR__ . '/security.php';
+require_once __DIR__ . '/booking.php';
 setSecurityHeaders();
 header('Content-Type: application/json; charset=UTF-8');
 

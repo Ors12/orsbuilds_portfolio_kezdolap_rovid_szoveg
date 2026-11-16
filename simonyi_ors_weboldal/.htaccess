@@ -15,15 +15,18 @@ Options -Indexes -MultiViews
 # HTML oldalakhoz CSP környezeti jelző.
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteRule ^$ - [E=PORTFOLIO_PAGE:1]
-    RewriteRule ^[^/]+\\.html$ - [E=PORTFOLIO_PAGE:1]
+    RewriteRule ^admin\.html$ - [E=PORTFOLIO_PAGE:1,L,NC]
+    RewriteRule ^(?:admin\.js|admin-auth\.php|maintenance\.php|api/admin-security\.php)$ - [L,NC]
+    RewriteRule ^$ maintenance.php?path=index.html [QSA,L]
+    RewriteRule ^(.+\.(?:html|php))$ maintenance.php?path=$1 [QSA,L,NC]
+    RewriteRule ^[^/]+\.html$ - [E=PORTFOLIO_PAGE:1]
     # TRACE metódus tiltása.
     RewriteCond %{REQUEST_METHOD} TRACE
     RewriteRule .* - [F]
 </IfModule>
 
 # Érzékeny konfigurációk és belső PHP segédfájlok közvetlenül nem hívhatók.
-<FilesMatch "^(?:config|security|booking)\\.php$">
+<FilesMatch "^(?:config|security|booking|admin-security)\.php$">
     Require all denied
 </FilesMatch>
 

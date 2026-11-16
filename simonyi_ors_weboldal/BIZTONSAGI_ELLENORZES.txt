@@ -13,6 +13,8 @@ A csomagban talált meglévő védelmek:
 Mostani kiegészítések:
 - a config.php és security.php közvetlen HTTP-elérése tiltott;
 - a foglalási segédfájl és a Composer vendor könyvtár közvetlen HTTP-elérése tiltott;
+- karbantartási kapu védi a HTML- és PHP-oldalakat, és adminisztrátori munkamenethez köti a teljes weboldal elérését;
+- az adminbelépés jelszó-hashből, CSRF-tokenből, same-origin ellenőrzésből, munkamenet-regenerálásból és belépési korlátozásból áll;
 - további érzékeny fájlkiterjesztések és rejtett verziókezelési mappák tiltása;
 - TRACE HTTP-metódus tiltása;
 - MultiViews kikapcsolása.
@@ -20,6 +22,8 @@ Mostani kiegészítések:
 FONTOS KORLÁTOK
 - Ez nem garantál feltörhetetlenséget, és nem helyettesíti a tárhelyszolgáltató védelmét.
 - A .htaccess csak Apache tárhelyen működik; Nginx esetén a szolgáltatónál kell megfelelő szabályokat beállítani.
+- A karbantartási kapu csak akkor védi az összes útvonalat, ha Apache mod_rewrite és a szükséges .htaccess felülbírálások engedélyezve vannak. Élesítés előtt próbáld ki kijelentkezett böngészőből.
+- Az adminisztrátori jelszó hashét az ORSBUILDS_ADMIN_PASSWORD_HASH környezeti változóban kell beállítani; alapértelmezett jelszó nincs.
 - HTTPS/SSL tanúsítvány legyen bekapcsolva. A HSTS fejléc csak HTTPS-en kerül kiadásra.
 - Az SMTP-szerver általi levél-elfogadás nem garantálja a végső kézbesítést; SPF/DKIM/DMARC és a levéllogok ellenőrzése szükséges.
 - Az IP-korlát megkerülhető elosztott IP-címekkel; komolyabb forgalomnál szerveroldali WAF/rate limit ajánlott.
