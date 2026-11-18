@@ -79,6 +79,27 @@ async function findRecord(id) {
 }
 
 /**
+ * Egy foglalás eltávolítása: előbb a rácspontok szabadulnak fel, a rekord törlése csak utána történik.
+ * cancelled: true esetén a lemondott foglalás másolata a bookings/cancelled alá kerül.
+ */
+export async function removeBooking(booking, { cancelled = false } = {}) {
+  const cellUrls = [];
+  for (const cell of cellsFor(booking.time, booking.duration)) {
+    const found = await list({ prefix: slotPath(booking.date, cell), limit: 1 });
+    cellUrls.push(...found.blobs.map((b) => b.url));
+  }
+  await Promise.all(cellUrls.map((url) => del(url)));
+  if (cancelled) {
+    await put(`bookings/cancelled/${booking.date}/${booking.id}.json`, JSON.stringify({
+      ...booking,
+      cancelledAt: new Date().toISOString(),
+    }), { ...privateJson, allowOverwrite: true });
+  }
+  const record = await list({ prefix: `bookings/records/${booking.date}/${booking.id}.json`, limit: 1 });
+  await Promise.all(record.blobs.map((b) => del(b.url)));
+}
+
+/**
  * Foglalás lemondása azonosító és e-mail-cím alapján.
  * Visszatér: { ok: true, booking } vagy { ok: false, reason: 'notfound' | 'past' }.
  */
@@ -91,17 +112,6 @@ export async function cancelBooking(id, email) {
   }
   if (!bookingIsInFuture(booking.date, booking.time)) return { ok: false, reason: 'past' };
 
-  // Előbb a rácspontok szabadulnak fel, a rekord törlése csak utána történik.
-  const cellUrls = [];
-  for (const cell of cellsFor(booking.time, booking.duration)) {
-    const found = await list({ prefix: slotPath(booking.date, cell), limit: 1 });
-    cellUrls.push(...found.blobs.map((b) => b.url));
-  }
-  await Promise.all(cellUrls.map((url) => del(url)));
-  await put(`bookings/cancelled/${booking.date}/${booking.id}.json`, JSON.stringify({
-    ...booking,
-    cancelledAt: new Date().toISOString(),
-  }), { ...privateJson, allowOverwrite: true });
-  await del(blob.url);
+  await removeBooking(booking, { cancelled: true });
   return { ok: true, booking };
 }

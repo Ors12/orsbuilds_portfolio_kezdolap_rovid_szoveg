@@ -4,7 +4,7 @@ import { config } from '../lib/config.js';
 import { clientIp, errorPage, isSameOrigin, redirect } from '../lib/http.js';
 import { createMailer, sendMail } from '../lib/mail.js';
 import { allowSubmission } from '../lib/ratelimit.js';
-import { reserve, takenCells } from '../lib/store.js';
+import { removeBooking, reserve, takenCells } from '../lib/store.js';
 
 const CONSENT = 'Elfogadom az adatkezelési tájékoztatót';
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -121,30 +121,36 @@ async function handleBooking({ field, name, email, phone, ip }) {
   }
   if (!result.ok) throw new FormError(slotTakenMessage);
 
-  // E-mail-küldési hiba nem vonhatja vissza a már elmentett foglalást.
+  // Az időpont csak akkor marad foglalt, ha a foglalás e-mailje eljutott hozzád.
+  // Ha az értesítő levél nem megy ki, a foglalás visszavonódik, és az időpont újra szabad.
+  const booking = { id, name, email, phone, service, date, time, duration, details };
   const dateLabel = `${date.replaceAll('-', '. ')}.`;
-  const mailErrors = [];
+  let mailer;
   try {
-    const mailer = createMailer();
+    mailer = createMailer();
     await sendMail(mailer, {
       to: config.recipient,
       replyTo: email,
       replyToName: name,
       subject: 'Új időpontfoglalás – orsbuilds',
       text: `Új időpontfoglalás (#${id})\n\nNév: ${name}\nE-mail: ${email}\nTelefon: ${phone}\nSzolgáltatás: ${service}\nIdőpont: ${dateLabel}, ${time} (magyar idő)\nIdőtartam: ${duration} perc\nAdatkezelési tájékoztató elfogadva: igen\n\nMegjegyzés:\n${details}\n`,
-    }).catch((error) => { console.error('orsbuilds booking admin email error:', error?.message); mailErrors.push('admin'); });
-    await sendMail(mailer, {
-      to: email,
-      toName: name,
-      replyTo: config.recipient,
-      replyToName: config.fromName,
-      subject: 'Időpontfoglalás visszaigazolása – orsbuilds',
-      text: `Kedves ${name}!\n\nSikeresen rögzítettük az időpontfoglalásodat.\n\nSzolgáltatás: ${service}\nIdőpont: ${dateLabel}, ${time} (magyar idő)\nIdőtartam: ${duration} perc\nFoglalási azonosító: ${id}\n\nLemondás: a weboldalon, az időpontfoglalás alatti „Időpont lemondása” űrlapon add meg az azonosítót és ezt az e-mail-címet. Kérdés vagy módosítás esetén válaszolj erre az e-mailre.\n\nÜdvözlettel,\norsbuilds`,
-    }).catch((error) => { console.error('orsbuilds booking confirmation email error:', error?.message); mailErrors.push('customer'); });
+    });
   } catch (error) {
-    console.error('orsbuilds booking mail configuration error:', error?.message);
-    mailErrors.push('configuration');
+    console.error('orsbuilds booking admin email error:', error?.message);
+    await removeBooking(booking).catch((cleanupError) => console.error('orsbuilds booking rollback error:', cleanupError?.message));
+    throw new FormError('A foglalást most nem sikerült elküldeni, ezért az időpont nem lett lefoglalva. Kérjük, próbáld újra később, vagy írj az info.orsbuilds@gmail.com címre.', 503);
   }
+
+  // A visszaigazoló levél hibája már nem vonja vissza a foglalást.
+  const mailErrors = [];
+  await sendMail(mailer, {
+    to: email,
+    toName: name,
+    replyTo: config.recipient,
+    replyToName: config.fromName,
+    subject: 'Időpontfoglalás visszaigazolása – orsbuilds',
+    text: `Kedves ${name}!\n\nSikeresen rögzítettük az időpontfoglalásodat.\n\nSzolgáltatás: ${service}\nIdőpont: ${dateLabel}, ${time} (magyar idő)\nIdőtartam: ${duration} perc\nFoglalási azonosító: ${id}\n\nLemondás: a weboldalon, az időpontfoglalás alatti „Időpont lemondása” űrlapon add meg az azonosítót és ezt az e-mail-címet. Kérdés vagy módosítás esetén válaszolj erre az e-mailre.\n\nÜdvözlettel,\norsbuilds`,
+  }).catch((error) => { console.error('orsbuilds booking confirmation email error:', error?.message); mailErrors.push('customer'); });
 
   const query = new URLSearchParams({ id });
   if (mailErrors.length) query.set('email', 'failed');
