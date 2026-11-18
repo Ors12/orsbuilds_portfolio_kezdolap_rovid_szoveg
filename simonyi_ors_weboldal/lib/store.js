@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 import { put, list, del, get } from '@vercel/blob';
-import { cellsFor } from './booking.js';
+import { bookingIsInFuture, cellsFor } from './booking.js';
 
 const privateJson = { access: 'private', addRandomSuffix: false, contentType: 'application/json' };
 const slotPath = (date, cell) => `bookings/slots/${date}/${cell.replace(':', '')}.json`;
@@ -66,3 +66,42 @@ export async function writeJson(pathname, value) {
 }
 
 export const hashKey = (value) => createHash('sha256').update(String(value)).digest('hex').slice(0, 40);
+
+async function findRecord(id) {
+  let cursor;
+  do {
+    const page = await list({ prefix: 'bookings/records/', cursor, limit: 1000 });
+    const hit = page.blobs.find((blob) => blob.pathname.endsWith(`/${id}.json`));
+    if (hit) return hit;
+    cursor = page.hasMore ? page.cursor : undefined;
+  } while (cursor);
+  return null;
+}
+
+/**
+ * Foglalás lemondása azonosító és e-mail-cím alapján.
+ * Visszatér: { ok: true, booking } vagy { ok: false, reason: 'notfound' | 'past' }.
+ */
+export async function cancelBooking(id, email) {
+  const blob = await findRecord(id);
+  if (!blob) return { ok: false, reason: 'notfound' };
+  const booking = await readJson(blob.pathname);
+  if (!booking || String(booking.email).trim().toLowerCase() !== String(email).trim().toLowerCase()) {
+    return { ok: false, reason: 'notfound' };
+  }
+  if (!bookingIsInFuture(booking.date, booking.time)) return { ok: false, reason: 'past' };
+
+  // Előbb a rácspontok szabadulnak fel, a rekord törlése csak utána történik.
+  const cellUrls = [];
+  for (const cell of cellsFor(booking.time, booking.duration)) {
+    const found = await list({ prefix: slotPath(booking.date, cell), limit: 1 });
+    cellUrls.push(...found.blobs.map((b) => b.url));
+  }
+  await Promise.all(cellUrls.map((url) => del(url)));
+  await put(`bookings/cancelled/${booking.date}/${booking.id}.json`, JSON.stringify({
+    ...booking,
+    cancelledAt: new Date().toISOString(),
+  }), { ...privateJson, allowOverwrite: true });
+  await del(blob.url);
+  return { ok: true, booking };
+}

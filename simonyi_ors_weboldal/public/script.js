@@ -81,7 +81,14 @@ if (bookingDate && bookingPackage && bookingTime && bookingAvailability && booki
         return;
       }
 
-      result.times.forEach((time) => bookingTime.add(new Option(time, time)));
+      const booked = Array.isArray(result.booked) ? result.booked : [];
+      const rows = [...result.times.map((time) => ({ time, free: true })), ...booked.map((time) => ({ time, free: false }))]
+        .sort((a, b) => a.time.localeCompare(b.time));
+      rows.forEach(({ time, free }) => {
+        const option = new Option(free ? time : `${time} – foglalt`, free ? time : '');
+        option.disabled = !free;
+        bookingTime.add(option);
+      });
       bookingAvailability.textContent = `Elérhető időpontok (${result.duration} perces egyeztetés):`;
     } catch (error) {
       if (requestId !== availabilityRequest) return;
@@ -158,4 +165,18 @@ if (bookingDate && bookingPackage && bookingTime && bookingAvailability && booki
   });
   window.addEventListener('resize', update);
   update();
+})();
+
+// Lemondás: azonosító előtöltése a levélben kapott linkből, foglalási azonosító megjelenítése a visszaigazoló oldalon
+(function () {
+  const params = new URLSearchParams(location.search);
+  const cancelId = document.querySelector('#cancel-id');
+  const fromLink = params.get('lemondas');
+  if (cancelId && fromLink && /^[0-9a-fA-F]{8}$/.test(fromLink)) cancelId.value = fromLink.toUpperCase();
+  const idBox = document.querySelector('#booking-id-box');
+  const id = params.get('id');
+  if (idBox && id && /^[0-9A-F]{8}$/.test(id)) {
+    idBox.querySelector('strong').textContent = id;
+    idBox.hidden = false;
+  }
 })();

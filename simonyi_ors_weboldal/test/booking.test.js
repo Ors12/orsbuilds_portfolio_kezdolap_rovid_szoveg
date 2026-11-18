@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { availableTimes, bookingDateIsValid, bookingDuration, cellsFor } from '../lib/booking.js';
+import { availableTimes, bookingDateIsValid, bookingDuration, bookingIsInFuture, cellsFor, slotStates } from '../lib/booking.js';
 
 // 2026-11-18 (szerda) 10:00 magyar idő = 09:00 UTC
 const now = new Date('2026-11-18T09:00:00Z');
@@ -43,4 +43,19 @@ test('jövőbeli nap: foglalt cellák kizárják az átfedő kezdéseket', () =>
   assert.ok(!withBooking.includes('10:30'));
   assert.ok(withBooking.includes('09:00'));  // 09:00–10:00 még belefér
   assert.ok(withBooking.includes('11:00'));
+});
+
+test('foglalt időpont szerepel a listában, de nem szabad', () => {
+  const taken = new Set(['10:00']);
+  const states = slotStates('2026-11-19', 'Bemutatkozó weboldal', taken, now);
+  assert.equal(states.find((s) => s.time === '10:00').free, false);
+  assert.equal(states.find((s) => s.time === '10:30').free, true);
+  assert.equal(availableTimes('2026-11-19', 'Bemutatkozó weboldal', taken, now).includes('10:00'), false);
+});
+
+test('lemondhatóság: csak a jövőbeli kezdés', () => {
+  assert.equal(bookingIsInFuture('2026-11-19', '09:00', now), true);
+  assert.equal(bookingIsInFuture('2026-11-17', '15:00', now), false);
+  assert.equal(bookingIsInFuture('2026-11-18', '10:30', now), true);
+  assert.equal(bookingIsInFuture('2026-11-18', '10:00', now), false);
 });

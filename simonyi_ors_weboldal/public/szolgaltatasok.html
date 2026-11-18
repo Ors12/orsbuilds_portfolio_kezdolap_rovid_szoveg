@@ -85,6 +85,18 @@
       <button class="btn" type="submit">Időpont lefoglalása</button>
       <p class="note">A rendszer a foglalás véglegesítése előtt újra ellenőrzi az időpontot. Sikeres foglalás után e-mailben elküldjük a visszaigazolást és az időpont részleteit.</p>
     </form>
+    <div class="cancel-box" id="lemondas">
+      <div class="cancel-text">
+        <h3>Le kell mondanod az időpontot?</h3>
+        <p>Add meg a foglalási azonosítót és a foglaláskor használt e-mail-címet. Az időpont ezután újra szabaddá válik. Az azonosítót a visszaigazoló e-mailben találod.</p>
+      </div>
+      <form class="cancel-form" action="/api/cancel" method="POST">
+        <div class="field" aria-hidden="true" style="position:absolute;left:-10000px"><label for="cancel-fax">Fax</label><input id="cancel-fax" name="fax_number" tabindex="-1" autocomplete="off"></div>
+        <div class="field"><label for="cancel-id">Foglalási azonosító</label><input id="cancel-id" name="booking_id" maxlength="9" autocomplete="off" required placeholder="pl. 3F9A12BC"></div>
+        <div class="field"><label for="cancel-email">E-mail-cím</label><input id="cancel-email" name="email" type="email" autocomplete="email" required placeholder="a foglaláskor megadott cím"></div>
+        <button class="btn cancel-btn" type="submit">Időpont lemondása</button>
+      </form>
+    </div>
   </section>
 </section>
 

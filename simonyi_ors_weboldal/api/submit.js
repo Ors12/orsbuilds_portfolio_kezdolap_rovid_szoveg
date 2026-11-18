@@ -139,12 +139,14 @@ async function handleBooking({ field, name, email, phone, ip }) {
       replyTo: config.recipient,
       replyToName: config.fromName,
       subject: 'Időpontfoglalás visszaigazolása – orsbuilds',
-      text: `Kedves ${name}!\n\nSikeresen rögzítettük az időpontfoglalásodat.\n\nSzolgáltatás: ${service}\nIdőpont: ${dateLabel}, ${time} (magyar idő)\nIdőtartam: ${duration} perc\nFoglalási azonosító: ${id}\n\nKérdés vagy módosítás esetén válaszolj erre az e-mailre.\n\nÜdvözlettel,\norsbuilds`,
+      text: `Kedves ${name}!\n\nSikeresen rögzítettük az időpontfoglalásodat.\n\nSzolgáltatás: ${service}\nIdőpont: ${dateLabel}, ${time} (magyar idő)\nIdőtartam: ${duration} perc\nFoglalási azonosító: ${id}\n\nLemondás: a weboldalon, az időpontfoglalás alatti „Időpont lemondása” űrlapon add meg az azonosítót és ezt az e-mail-címet. Kérdés vagy módosítás esetén válaszolj erre az e-mailre.\n\nÜdvözlettel,\norsbuilds`,
     }).catch((error) => { console.error('orsbuilds booking confirmation email error:', error?.message); mailErrors.push('customer'); });
   } catch (error) {
     console.error('orsbuilds booking mail configuration error:', error?.message);
     mailErrors.push('configuration');
   }
 
-  return redirect(mailErrors.length ? `${config.bookingSuccessUrl}?email=failed` : config.bookingSuccessUrl);
+  const query = new URLSearchParams({ id });
+  if (mailErrors.length) query.set('email', 'failed');
+  return redirect(`${config.bookingSuccessUrl}?${query}`);
 }

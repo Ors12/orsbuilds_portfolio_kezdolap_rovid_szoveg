@@ -583,3 +583,19 @@ mark.fill { background: #fff0b8; color: var(--ink); padding: 0 4px; border-radiu
 @keyframes avatar-drop { 0% { opacity: 0; transform: translateY(-160px) scale(.92); } 55% { opacity: 1; transform: translateY(14px) scale(1); } 75% { transform: translateY(-6px); } 100% { opacity: 1; transform: translateY(0); } }
 @keyframes avatar-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
 .profile-avatar { animation: avatar-drop 1.1s cubic-bezier(.22,.8,.3,1) .15s both, avatar-float 5s ease-in-out 1.4s infinite; }
+
+/* ---------- Időpont lemondása ---------- */
+.booking-form option:disabled { color: #8a968f; }
+.cancel-box { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(20px, 4vw, 48px); align-items: start; margin-top: 28px; max-width: 720px; padding: clamp(20px, 3.5vw, 30px); border: 2px dashed var(--rule); border-radius: 22px 6px 22px 6px; }
+.cancel-box h3 { margin: 0 0 8px; font-size: 1.2rem; }
+.cancel-box p { margin: 0; color: var(--muted); font-size: .96rem; }
+.cancel-form { display: grid; gap: 14px; }
+.cancel-btn { justify-self: start; background: transparent; color: var(--ink); border: 2px solid var(--ink); }
+.cancel-btn:hover, .cancel-btn:focus-visible { background: var(--ink); color: #fff; }
+@media (max-width: 760px) { .cancel-box { grid-template-columns: minmax(0, 1fr); } }
+.booking-id-box { margin: 18px 0 22px; padding: 16px 20px; max-width: 30rem; background: var(--panel); border-left: 5px solid var(--mark); border-radius: 4px 18px 18px 4px; }
+.booking-id-box[hidden] { display: none; }
+.booking-id-box strong { font: 700 1.5rem/1.3 var(--serif); letter-spacing: .08em; color: var(--brand-dark); }
+.booking-id-box small { color: var(--muted); }
+.cancel-form .cancel-btn { background: transparent; color: var(--ink); border: 2px solid var(--ink); }
+.cancel-form .cancel-btn:hover, .cancel-form .cancel-btn:focus-visible { background: var(--ink); color: #fff; }

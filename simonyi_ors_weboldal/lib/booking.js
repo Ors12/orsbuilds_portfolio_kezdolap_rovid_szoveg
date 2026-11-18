@@ -48,8 +48,11 @@ export function cellsFor(time, duration) {
   return Array.from({ length: count }, (_, i) => toHHMM(start + i * booking.stepMinutes));
 }
 
-/** Szabad kezdési időpontok. A taken egy Set a már foglalt rácspontokról ('HH:MM'). */
-export function availableTimes(dateStr, service, taken = new Set(), now = new Date()) {
+/**
+ * Minden kezdési időpont és szabadsága: [{ time: 'HH:MM', free: boolean }].
+ * A taken egy Set a már foglalt rácspontokról ('HH:MM'). A múltbeli kezdések kimaradnak.
+ */
+export function slotStates(dateStr, service, taken = new Set(), now = new Date()) {
   const duration = bookingDuration(service);
   if (duration < 1 || !bookingDateIsValid(dateStr, now)) return [];
   const opens = toMinutes(booking.openTime);
@@ -59,8 +62,20 @@ export function availableTimes(dateStr, service, taken = new Set(), now = new Da
   const result = [];
   for (let start = opens; start + duration <= closes; start += step) {
     if (dateStr === current.date && start <= current.minutes) continue;
-    if (cellsFor(toHHMM(start), duration).some((cell) => taken.has(cell))) continue;
-    result.push(toHHMM(start));
+    const free = !cellsFor(toHHMM(start), duration).some((cell) => taken.has(cell));
+    result.push({ time: toHHMM(start), free });
   }
   return result;
+}
+
+/** Szabad kezdési időpontok. */
+export function availableTimes(dateStr, service, taken = new Set(), now = new Date()) {
+  return slotStates(dateStr, service, taken, now).filter((slot) => slot.free).map((slot) => slot.time);
+}
+
+/** Lemondható-e még a foglalás (a kezdés magyar idő szerint még nem telt el). */
+export function bookingIsInFuture(dateStr, time, now = new Date()) {
+  const current = budapestNow(now);
+  if (dateStr !== current.date) return dateStr > current.date;
+  return toMinutes(time) > current.minutes;
 }
