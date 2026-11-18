@@ -1,0 +1,7 @@
+{
+  "routes": [
+    { "src": "/(database|api)(/.*)?", "status": 404 },
+    { "src": "/(admin-auth|maintenance)\\.php", "status": 404 },
+    { "src": "/(?!robots\\.txt$)[^/]+\\.(sqlite|sql|php|txt)$", "status": 404 }
+  ]
+}
