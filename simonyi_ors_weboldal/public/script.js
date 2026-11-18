@@ -128,3 +128,34 @@ if (bookingDate && bookingPackage && bookingTime && bookingAvailability && booki
     io.observe(el);
   });
 })();
+
+// Szolgáltatások: lapozás nyilakkal, görgetéssel vagy billentyűvel
+(function () {
+  const track = document.querySelector('.services');
+  const nav = document.querySelector('.carousel-nav');
+  if (!track || !nav) return;
+  const prev = nav.querySelector('[data-dir="-1"]');
+  const next = nav.querySelector('[data-dir="1"]');
+  const count = nav.querySelector('.carousel-count');
+  const cards = [...track.querySelectorAll('.service')];
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const step = () => (cards[1] ? cards[1].offsetLeft - cards[0].offsetLeft : track.clientWidth);
+  function update() {
+    const max = track.scrollWidth - track.clientWidth - 2;
+    prev.disabled = track.scrollLeft <= 2;
+    next.disabled = track.scrollLeft >= max;
+    nav.hidden = max <= 0;
+    const idx = Math.min(cards.length, Math.round(track.scrollLeft / step()) + 1);
+    count.textContent = idx + ' / ' + cards.length;
+  }
+  [prev, next].forEach((b) => b.addEventListener('click', () => {
+    track.scrollBy({ left: Number(b.dataset.dir) * step(), behavior: reduce ? 'auto' : 'smooth' });
+  }));
+  track.addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
+  track.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') { e.preventDefault(); next.click(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); prev.click(); }
+  });
+  window.addEventListener('resize', update);
+  update();
+})();

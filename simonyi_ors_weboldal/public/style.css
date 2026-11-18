@@ -318,3 +318,15 @@ main .hero .lead { color: var(--ink); }
 .service .price-button { border-radius: 999px; }
 .service :is(h2, p, li) { text-shadow: none; }
 @media (prefers-reduced-motion: reduce) { .service { transition: none; } .service:hover { transform: none; } }
+
+/* Szolgáltatások: oldalra görgethető sor */
+.services-carousel { position: relative; }
+.services { display: flex; grid-template-columns: none; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: 4px; padding: 8px 4px 28px; margin-inline: -4px; scrollbar-width: thin; scrollbar-color: var(--brand) var(--rule); overscroll-behavior-x: contain; }
+.services:focus-visible { outline: 3px solid var(--mark); outline-offset: 2px; border-radius: 28px; }
+.services .service { flex: 0 0 min(86%, 360px); scroll-snap-align: start; }
+.carousel-nav { display: flex; align-items: center; justify-content: flex-end; gap: 14px; margin-top: 4px; }
+.carousel-count { font-size: .95rem; color: var(--muted); min-width: 4.5em; text-align: center; }
+.carousel-btn { width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--brand); background: var(--panel); color: var(--brand-dark); font: 600 1.6rem/1 var(--sans); cursor: pointer; padding: 0 0 4px; }
+.carousel-btn:hover:not(:disabled), .carousel-btn:focus-visible { background: var(--brand); color: #fff; }
+.carousel-btn:disabled { opacity: .35; cursor: default; }
+@media (prefers-reduced-motion: reduce) { .services { scroll-behavior: auto; } }
