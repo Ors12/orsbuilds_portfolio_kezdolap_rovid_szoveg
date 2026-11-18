@@ -4,7 +4,7 @@ import { config } from '../lib/config.js';
 import { clientIp, errorPage, isSameOrigin, redirect } from '../lib/http.js';
 import { createMailer, sendMail } from '../lib/mail.js';
 import { allowSubmission } from '../lib/ratelimit.js';
-import { removeBooking, reserve, takenCells } from '../lib/store.js';
+import { confirmBooking, removeBooking, reserve, takenCells } from '../lib/store.js';
 
 const CONSENT = 'Elfogadom az adatkezelési tájékoztatót';
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -139,6 +139,14 @@ async function handleBooking({ field, name, email, phone, ip }) {
     console.error('orsbuilds booking admin email error:', error?.message);
     await removeBooking(booking).catch((cleanupError) => console.error('orsbuilds booking rollback error:', cleanupError?.message));
     throw new FormError('A foglalást most nem sikerült elküldeni, ezért az időpont nem lett lefoglalva. Kérjük, próbáld újra később, vagy írj az info.orsbuilds@gmail.com címre.', 503);
+  }
+
+  try {
+    await confirmBooking(booking);
+  } catch (error) {
+    console.error('orsbuilds booking confirm error:', error?.message);
+    await removeBooking(booking).catch(() => {});
+    throw new FormError('A foglalást nem sikerült véglegesíteni. Kérjük, próbáld újra később.', 503);
   }
 
   // A visszaigazoló levél hibája már nem vonja vissza a foglalást.

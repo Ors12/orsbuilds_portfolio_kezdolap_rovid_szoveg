@@ -8,19 +8,41 @@ const slotPath = (date, cell) => `bookings/slots/${date}/${cell.replace(':', '')
 const isAlreadyExists = (error) =>
   error?.name === 'BlobAlreadyExistsError' || /already exist/i.test(String(error?.message || ''));
 
-/** A megadott napon már foglalt rácspontok ('HH:MM'). */
+const PENDING_MS = 2 * 60 * 1000;
+
+/**
+ * A megadott napon foglalt rácspontok ('HH:MM').
+ * Foglalt: a megerősített (értesítő e-mail kiment) pont, illetve a most készülő, 2 percnél fiatalabb.
+ * A régi, meg nem erősített pontok (pl. sikertelen e-mailű próbák) felszabadulnak és törlődnek.
+ */
 export async function takenCells(date) {
   const taken = new Set();
+  const stale = [];
+  const blobs = [];
   let cursor;
   do {
     const page = await list({ prefix: `bookings/slots/${date}/`, cursor, limit: 100 });
-    for (const blob of page.blobs) {
-      const code = blob.pathname.split('/').pop().replace('.json', '');
-      if (/^\d{4}$/.test(code)) taken.add(`${code.slice(0, 2)}:${code.slice(2)}`);
-    }
+    blobs.push(...page.blobs);
     cursor = page.hasMore ? page.cursor : undefined;
   } while (cursor);
+  await Promise.all(blobs.map(async (blob) => {
+    const code = blob.pathname.split('/').pop().replace('.json', '');
+    if (!/^\d{4}$/.test(code)) return;
+    let confirmed = false;
+    try { confirmed = (await readJson(blob.pathname))?.confirmed === true; } catch { confirmed = false; }
+    const young = Date.now() - new Date(blob.uploadedAt).getTime() < PENDING_MS;
+    if (confirmed || young) taken.add(`${code.slice(0, 2)}:${code.slice(2)}`);
+    else stale.push(blob.url);
+  }));
+  await Promise.allSettled(stale.map((url) => del(url)));
   return taken;
+}
+
+/** A foglalás megerősítése: a rácspontok véglegesen foglaltak lesznek. */
+export async function confirmBooking(booking) {
+  for (const cell of cellsFor(booking.time, booking.duration)) {
+    await put(slotPath(booking.date, cell), JSON.stringify({ id: booking.id, confirmed: true }), { ...privateJson, allowOverwrite: true });
+  }
 }
 
 async function release(urls) {
