@@ -1,7 +1,4 @@
 {
-  "routes": [
-    { "src": "/(database|api)(/.*)?", "status": 404 },
-    { "src": "/(admin-auth|maintenance)\\.php", "status": 404 },
-    { "src": "/(?!robots\\.txt$)[^/]+\\.(sqlite|sql|php|txt)$", "status": 404 }
-  ]
+  "buildCommand": "rm -rf database api admin-auth.php maintenance.php composer.json .htaccess && find . -maxdepth 1 -type f \\( -name '*.php' -o -name '*.sqlite' -o -name '*.sql' -o -name '*.txt' \\) ! -name robots.txt -delete; true",
+  "outputDirectory": "."
 }
