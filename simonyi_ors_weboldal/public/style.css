@@ -470,3 +470,49 @@ mark.fill { background: #fff0b8; color: var(--ink); padding: 0 4px; border-radiu
 .learning-note { margin: 18px 0 clamp(40px, 6vw, 72px); font-size: .88rem; color: var(--muted); }
 .learning-card :is(h2, p, li) { text-shadow: none; }
 @media (max-width: 700px) { .learning-card { grid-template-columns: 1fr; } .learning-icon { width: 68px; height: 68px; } }
+
+/* ===== Változatosabb elemek: nem minden szakasz kártya ===== */
+
+/* Tanulmányok: sorok, színes jelölővel (nem kártyák) */
+.study-grid { grid-template-columns: 1fr !important; gap: 0; margin: 28px 0 56px !important; border-top: 2px solid var(--ink); }
+.study, .study:nth-child(even) { display: grid; grid-template-columns: minmax(180px, 0.7fr) minmax(0, 1.6fr); gap: 8px 40px; align-items: baseline; padding: 24px 20px 24px 24px; background: transparent; border: 0; border-bottom: 1px solid var(--rule); border-radius: 0; box-shadow: none; transform: none !important; position: relative; transition: background .25s ease; }
+.study::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: var(--mark); transform: scaleY(0); transform-origin: top; transition: transform .3s ease; }
+.study:hover { background: rgba(251,252,250,.75); border-color: var(--rule); }
+.study:hover::before { transform: scaleY(1); }
+.study h3 { font-size: 1.45rem; margin: 0; }
+.study p { font-size: 1.05rem; }
+@media (max-width: 700px) { .study, .study:nth-child(even) { grid-template-columns: 1fr; } }
+
+/* Eszközök (kezdőlap és bemutatkozás): táblázatszerű sorok, nem kártyák */
+.skills { grid-template-columns: 1fr !important; gap: 0 !important; max-width: none; border-top: 1px solid rgba(230,238,233,.3); }
+.skills > .skill-card { display: grid !important; grid-template-columns: minmax(200px, 0.7fr) minmax(0, 2fr); gap: 12px 40px; align-items: center; padding: 22px 0 !important; border: 0 !important; border-bottom: 1px solid rgba(230,238,233,.3) !important; border-radius: 0 !important; background: none !important; backdrop-filter: none !important; }
+.skills .skill-card dt { margin: 0 !important; font: 600 1.3rem/1.25 var(--serif); }
+@media (max-width: 700px) { .skills > .skill-card { grid-template-columns: 1fr !important; } }
+
+/* Így dolgozunk együtt: kártyák nélküli idővonal */
+.process-section .steps li > div { background: none; border: 0; box-shadow: none; border-radius: 0; padding: 0 6px 0 14px; height: auto; border-left: 3px solid var(--mark); margin-left: 40px; transform: none !important; }
+.process-section .steps li { padding-bottom: 8px; }
+@media (max-width: 1000px) { .process-section .steps li > div { margin-left: 0; } }
+
+/* GYIK: vonalas sorok, kártyák nélkül */
+.faq-layout .faq-item { background: none; border: 0; border-bottom: 1px solid var(--ink); border-radius: 0; box-shadow: none; }
+.faq-layout .faq-list { gap: 0; border-top: 1px solid var(--ink); }
+.faq-layout .faq-item:hover, .faq-layout .faq-item[open] { border-color: var(--ink); box-shadow: none; }
+.faq-layout .faq-item summary { padding: 22px 64px 22px 0; border-radius: 0; font: 600 1.15rem/1.35 var(--serif); }
+.faq-layout .faq-item summary::after { right: 0; background: none; border: 0; font-size: 1.9rem; color: var(--brand); width: 38px; }
+.faq-layout .faq-item[open] summary::after { background: none; color: var(--brand-dark); }
+.faq-layout .faq-item[open] summary { color: var(--brand-dark); }
+.faq-layout .faq-item p { padding: 0 64px 24px 0; }
+.faq-ask { margin-top: 20px; }
+.faq-ask a { color: var(--brand-dark); font-weight: 600; text-underline-offset: 4px; }
+
+/* Bemutatkozás: két hasábos szöveg bal oldali jelölővel */
+.about-bubbles { gap: clamp(28px, 5vw, 64px); }
+.about-bubble, .about-bubble:nth-child(even) { padding: 0 0 0 24px; background: none; border: 0; border-left: 5px solid var(--mark); border-radius: 0; box-shadow: none; }
+.about-bubble h2 { font-size: 1.7rem; }
+
+/* Munkáim: böngészőablak-keret a képernyőképek körül */
+.work-shot { border-radius: 12px; border: 1px solid #b8c3bc; box-shadow: 0 18px 36px -22px rgba(20,48,43,.55); }
+.work-shot::before { content: ""; display: block; height: 26px; background: radial-gradient(circle at 16px 13px, #e8685c 4px, transparent 5px), radial-gradient(circle at 32px 13px, #f0b429 4px, transparent 5px), radial-gradient(circle at 48px 13px, #4fae6f 4px, transparent 5px), #e4e9e5; border-bottom: 1px solid #b8c3bc; }
+.faq-ask { background: none; padding: 0; border-radius: 0; color: var(--ink); margin-top: 20px; }
+.faq-ask a { font: 600 1.05rem var(--sans); }
