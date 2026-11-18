@@ -427,3 +427,16 @@ mark.fill { background: #fff0b8; color: var(--ink); padding: 0 4px; border-radiu
   .process-section .steps li > div { height: auto; }
 }
 @media (prefers-reduced-motion: reduce) { .process-section .steps li > div { transition: none; } .process-section .steps li:hover > div { transform: none; } }
+
+/* Röviden rólam */
+.about-short-grid { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr); gap: clamp(24px, 5vw, 64px); align-items: center; }
+.about-short-head h2 { margin-bottom: 20px; }
+.about-values li { border-color: var(--brand); color: var(--brand-dark); background: var(--panel); font-weight: 500; }
+.about-values li:hover { background: var(--mark); border-color: var(--mark); color: var(--ink); }
+.about-short-bubble { position: relative; padding: clamp(26px, 4vw, 44px); background: var(--panel); border: 1px solid var(--rule); border-radius: 36px 36px 36px 8px; box-shadow: 0 14px 34px -16px rgba(20,48,43,.35); }
+.about-short-bubble::before { content: "„"; position: absolute; top: -4px; left: 28px; font: 700 4rem/1 var(--serif); color: var(--mark); }
+.about-short-bubble p { margin: 44px 0 22px; font-size: 1.18rem; line-height: 1.7; max-width: none; }
+.about-short-link { display: inline-block; padding: 10px 22px; border-radius: 999px; background: var(--brand); color: #fff; font: 600 .98rem var(--sans); text-decoration: none; }
+.about-short-link:hover, .about-short-link:focus-visible { background: var(--band); }
+.about-short :is(h2, p, li, a) { text-shadow: none; }
+@media (max-width: 820px) { .about-short-grid { grid-template-columns: 1fr; } }
