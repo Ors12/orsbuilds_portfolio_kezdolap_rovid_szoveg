@@ -4,16 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
-  <meta name="theme-color" content="#0b1020">
+  <meta name="theme-color" content="#14302b">
   <title>Adminbelépés | orsbuilds</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <main class="wrap" style="min-height:75vh;display:grid;place-items:center">
-  <section class="card" style="width:min(100%,520px);padding:clamp(28px,6vw,48px)">
-    <div class="eyebrow">ORSBUILDS · Adminisztráció</div>
-    <h1 style="margin-top:16px">Adminbelépés</h1>
+  <section class="admin-card">
+    <h1>Adminbelépés</h1>
     <p class="muted">Jelentkezz be a weboldal adminisztrációjához.</p>
     <form id="admin-login-form" class="booking-form" action="/api/admin-auth" method="post" style="margin-top:28px">
       <input type="hidden" name="action" value="login">
@@ -22,11 +21,11 @@
         <label for="admin-password">Adminjelszó</label>
         <input id="admin-password" name="password" type="password" autocomplete="current-password" required maxlength="1024">
       </div>
-      <button id="admin-login-button" class="btn" type="submit" disabled>Belépés ↗</button>
+      <button id="admin-login-button" class="btn" type="submit" disabled>Belépés</button>
     </form>
     <section id="admin-session" hidden aria-live="polite">
       <p class="note">Bejelentkezve. A weboldal tartalma adminisztrátorként elérhető.</p>
-      <p><a class="btn" href="index.html">Weboldal megnyitása ↗</a></p>
+      <p><a class="btn" href="index.html">Weboldal megnyitása</a></p>
       <button id="admin-logout-button" class="btn secondary" type="button">Kijelentkezés</button>
     </section>
     <p id="admin-message" class="note" role="status" aria-live="polite" style="margin-top:20px"></p>
