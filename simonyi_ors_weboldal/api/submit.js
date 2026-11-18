@@ -73,8 +73,10 @@ async function handleContact({ field, name, email, phone, ip }) {
     throw new FormError('Kérlek, várj fél percet a következő beküldés előtt.', 429);
   }
 
+  let mailer;
   try {
-    await sendMail(createMailer(), {
+    mailer = createMailer();
+    await sendMail(mailer, {
       to: config.recipient,
       replyTo: email,
       replyToName: name,
@@ -85,6 +87,15 @@ async function handleContact({ field, name, email, phone, ip }) {
     console.error('orsbuilds contact email error:', error?.message);
     throw new FormError('Az üzenetet most nem sikerült e-mailben elküldeni. Kérjük, próbáld újra később.', 503);
   }
+  // Automatikus válasz az ügyfélnek; a hibája nem akadályozza meg a sikeres beküldést.
+  await sendMail(mailer, {
+    to: email,
+    toName: name,
+    replyTo: config.recipient,
+    replyToName: config.fromName,
+    subject: 'Megkaptam az üzenetedet – orsbuilds',
+    text: `Kedves ${name}!\n\nKöszönöm az üzenetedet, megkaptam. Hamarosan, általában 1–2 munkanapon belül válaszolok.\n\nTéma: ${service}\nÜzeneted:\n${message}\n\nHa közben eszedbe jut valami, válaszolj erre az e-mailre.\n\nÜdvözlettel,\nSimonyi Örs\norsbuilds`,
+  }).catch((error) => console.error('orsbuilds contact confirmation email error:', error?.message));
   return redirect(config.successUrl);
 }
 
