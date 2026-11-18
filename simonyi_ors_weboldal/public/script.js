@@ -103,6 +103,10 @@ if (bookingDate && bookingPackage && bookingTime && bookingAvailability && booki
   }
 
   bookingDate.addEventListener('change', loadBookingTimes);
+  // Ha közben más foglalt, a lap újra előtérbe kerülésekor frissül a lista (kiválasztott idő nélkül)
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible' && bookingDate.value && bookingPackage.value && !bookingTime.value) loadBookingTimes();
+  });
   bookingPackage.addEventListener('change', loadBookingTimes);
   bookingForm.addEventListener('submit', (event) => {
     if (availabilityPending) {

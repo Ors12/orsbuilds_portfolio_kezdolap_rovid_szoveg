@@ -59,3 +59,20 @@ test('lemondhatóság: csak a jövőbeli kezdés', () => {
   assert.equal(bookingIsInFuture('2026-11-18', '10:30', now), true);
   assert.equal(bookingIsInFuture('2026-11-18', '10:00', now), false);
 });
+
+test('bármely lefoglalt kezdés, bármely szolgáltatással, mindenki más számára foglalt lesz', () => {
+  const services = ['Bemutatkozó weboldal', 'Többoldalas céges weboldal', 'Webshop', 'Egyedi fejlesztés', 'Karbantartás és szerkesztés', 'Egyéb'];
+  for (const bookedService of services) {
+    for (const time of availableTimes('2026-11-19', bookedService, new Set(), now)) {
+      const taken = new Set(cellsFor(time, bookingDuration(bookedService)));
+      for (const other of services) {
+        const free = availableTimes('2026-11-19', other, taken, now);
+        assert.equal(free.includes(time), false, `${bookedService} ${time} után ${other} még szabad`);
+        for (const t of free) {
+          const cells = cellsFor(t, bookingDuration(other));
+          assert.equal(cells.some((c) => taken.has(c)), false, `átfedés: ${t}`);
+        }
+      }
+    }
+  }
+});
