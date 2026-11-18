@@ -599,3 +599,6 @@ mark.fill { background: #fff0b8; color: var(--ink); padding: 0 4px; border-radiu
 .booking-id-box small { color: var(--muted); }
 .cancel-form .cancel-btn { background: transparent; color: var(--ink); border: 2px solid var(--ink); }
 .cancel-form .cancel-btn:hover, .cancel-form .cancel-btn:focus-visible { background: var(--ink); color: #fff; }
+
+.work-code { margin-left: 16px; font-size: .94rem; color: var(--muted); text-underline-offset: 4px; }
+.work-code:hover { color: var(--brand); }
