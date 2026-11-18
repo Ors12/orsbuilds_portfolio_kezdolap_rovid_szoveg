@@ -104,3 +104,27 @@ if (bookingDate && bookingPackage && bookingTime && bookingAvailability && booki
     }
   });
 }
+
+// Görgetéskor megjelenő szövegek (csökkentett mozgásnál kikapcsolva)
+(function () {
+  if (!('IntersectionObserver' in window)) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const sel = 'main h1, main h2, main h3, main p, main li, main dt, main dd, main label, main .btn, main .text-link, footer p, footer a, footer li';
+  const items = [...document.querySelectorAll(sel)].filter((el) => !el.closest('.nav, .topbar, form button, .admin-panel'));
+  if (!items.length) return;
+  document.documentElement.classList.add('js-reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+  items.forEach((el) => {
+    if (el.closest('.reveal') && el.closest('.reveal') !== el) return;
+    const sib = el.parentElement ? [...el.parentElement.children].indexOf(el) : 0;
+    el.style.setProperty('--d', Math.min(sib, 5) * 70 + 'ms');
+    el.classList.add('reveal');
+    io.observe(el);
+  });
+})();
