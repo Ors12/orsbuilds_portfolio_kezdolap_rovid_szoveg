@@ -460,3 +460,13 @@ mark.fill { background: #fff0b8; color: var(--ink); padding: 0 4px; border-radiu
 .faq-layout .faq-item p { margin: 0; padding: 0 26px 22px; max-width: none; }
 .faq-layout :is(h2, p, summary) { text-shadow: none; }
 @media (max-width: 900px) { .faq-layout { grid-template-columns: 1fr; } .faq-intro { position: static; } }
+
+/* Folyamatos tanulás */
+.learning-card { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(20px, 4vw, 44px); align-items: start; padding: clamp(28px, 4vw, 48px); background: var(--band) url("assets/bg/hatter-sav.svg") center / cover; color: var(--band-ink); border-radius: 40px 40px 40px 10px; box-shadow: 0 18px 40px -20px rgba(20,48,43,.6); }
+.learning-icon { display: grid; place-items: center; width: 84px; height: 84px; border-radius: 50%; background: var(--mark); color: var(--ink); box-shadow: 0 0 0 8px rgba(240,180,41,.22); }
+.learning-text h2 { color: #fff; margin: 4px 0 14px; }
+.learning-text p { margin: 0 0 20px; max-width: 62ch; color: rgba(230,238,233,.9); font-size: 1.1rem; line-height: 1.7; }
+.learning-chips li { border-color: rgba(230,238,233,.4); color: var(--band-ink); }
+.learning-note { margin: 18px 0 clamp(40px, 6vw, 72px); font-size: .88rem; color: var(--muted); }
+.learning-card :is(h2, p, li) { text-shadow: none; }
+@media (max-width: 700px) { .learning-card { grid-template-columns: 1fr; } .learning-icon { width: 68px; height: 68px; } }
