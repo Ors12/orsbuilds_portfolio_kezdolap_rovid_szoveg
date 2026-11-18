@@ -142,7 +142,7 @@ if (bookingDate && bookingPackage && bookingTime && bookingAvailability && booki
     availabilityPending = true;
     try {
       const query = new URLSearchParams({ date: bookingDate.value, package: bookingPackage.value });
-      const response = await fetch(`api/availability.php?${query}`, {
+      const response = await fetch(`/api/availability?${query}`, {
         headers: { Accept: 'application/json' }
       });
       const result = await response.json();
@@ -165,7 +165,7 @@ if (bookingDate && bookingPackage && bookingTime && bookingAvailability && booki
       bookingTime.replaceChildren(new Option('Nem sikerült betölteni az időpontokat', ''));
       bookingTime.disabled = true;
       bookingAvailability.textContent = error instanceof TypeError
-        ? 'Az időpontfoglaló szerver nem érhető el. Ellenőrizd, hogy PHP-t támogató tárhelyről nyitottad-e meg az oldalt.'
+        ? 'Az időpontfoglaló szerver nem érhető el. Próbáld újra később.'
         : error.message || 'Az időpontok jelenleg nem tölthetők be.';
     } finally {
       if (requestId === availabilityRequest) availabilityPending = false;

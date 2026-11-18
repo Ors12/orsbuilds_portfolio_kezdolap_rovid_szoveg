@@ -112,7 +112,7 @@
       <h2>Időpontfoglalás</h2>
       <p class="muted">Válassz szolgáltatást és egy szabad időpontot. A foglalásról e-mailben visszaigazolást küldünk.</p>
     </div>
-    <form class="card booking-form" action="api/submit.php" method="POST">
+    <form class="card booking-form" action="/api/submit" method="POST">
       <input type="hidden" name="form_type" value="booking">
       <div class="field" aria-hidden="true" style="position:absolute;left:-10000px"><label for="booking-fax">Fax</label><input id="booking-fax" name="fax_number" tabindex="-1" autocomplete="off"></div>
       <div class="booking-step">
