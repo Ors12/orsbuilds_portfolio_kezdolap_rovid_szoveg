@@ -516,3 +516,44 @@ mark.fill { background: #fff0b8; color: var(--ink); padding: 0 4px; border-radiu
 .work-shot::before { content: ""; display: block; height: 26px; background: radial-gradient(circle at 16px 13px, #e8685c 4px, transparent 5px), radial-gradient(circle at 32px 13px, #f0b429 4px, transparent 5px), radial-gradient(circle at 48px 13px, #4fae6f 4px, transparent 5px), #e4e9e5; border-bottom: 1px solid #b8c3bc; }
 .faq-ask { background: none; padding: 0; border-radius: 0; color: var(--ink); margin-top: 20px; }
 .faq-ask a { font: 600 1.05rem var(--sans); }
+
+/* ---------- Kapcsolat (újragondolt) ---------- */
+.contact-hero { padding-bottom: clamp(8px, 2vw, 20px); }
+.contact-hero .page-head { max-width: 46rem; }
+.contact-layout { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.25fr); }
+.contact-aside { display: grid; gap: 28px; position: sticky; top: 96px; }
+@media (max-width: 860px) { .contact-aside { position: static; } }
+.contact-card { background: var(--band); color: var(--band-ink); border-radius: 22px 22px 22px 6px; padding: clamp(24px, 3.5vw, 36px); position: relative; overflow: hidden; }
+.contact-card::after { content: ""; position: absolute; right: -46px; bottom: -46px; width: 140px; height: 140px; border-radius: 50%; border: 22px solid rgba(240,180,41,.16); pointer-events: none; }
+.contact-card-kicker { margin: 0 0 14px; color: var(--mark); font-weight: 500; font-size: .98rem; }
+.contact-big { display: block; font: 700 clamp(1.7rem, 3.6vw, 2.2rem)/1.15 var(--serif); color: #fff; text-decoration: none; letter-spacing: .01em; }
+.contact-mail { display: inline-block; margin-top: 10px; color: var(--band-ink); text-underline-offset: 4px; overflow-wrap: anywhere; }
+.contact-big:hover, .contact-mail:hover { color: var(--mark); }
+.contact-card-note { margin: 22px 0 0; padding-top: 16px; border-top: 1px solid rgba(230,238,233,.2); font-size: .95rem; color: rgba(230,238,233,.8); max-width: 30ch; }
+.contact-checklist h2 { font-size: 1.2rem; margin: 0 0 10px; }
+.contact-checklist ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.contact-checklist li { position: relative; padding-left: 28px; color: var(--muted); }
+.contact-checklist li::before { content: ""; position: absolute; left: 3px; top: .38em; width: 7px; height: 12px; border: solid var(--brand); border-width: 0 2.5px 2.5px 0; transform: rotate(40deg); }
+.contact-aside .contact-social-block { margin: 0; }
+
+.contact-form-wrap { background: var(--panel); border: 0; border-radius: 6px 28px 28px 28px; padding: clamp(24px, 4vw, 44px); box-shadow: 0 18px 44px -24px rgba(20,48,43,.35); border-top: 5px solid var(--mark); }
+.contact-form-wrap .form-heading h2 { font-size: 1.6rem; }
+.contact-form input:not([type="checkbox"]):not([type="radio"]), .contact-form textarea { background: transparent; border: 0; border-bottom: 2px solid #b4c0b9; border-radius: 0; padding: 10px 2px; transition: border-color .2s; }
+.contact-form textarea { border: 2px solid #b4c0b9; border-radius: 10px; padding: 12px 14px; }
+.contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: var(--brand); box-shadow: 0 2px 0 0 var(--brand); }
+.contact-form textarea:focus { box-shadow: none; }
+.contact-form .field label, .contact-form .field legend { font-size: .95rem; font-weight: 600; color: var(--brand-dark); }
+.topic { border: 0; margin: 0; padding: 0; min-width: 0; }
+.topic legend { padding: 0; margin-bottom: 10px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { position: relative; }
+.chip input { position: absolute; opacity: 0; width: 100%; height: 100%; inset: 0; margin: 0; cursor: pointer; }
+.chip span { display: inline-block; padding: 8px 15px; border: 1.5px solid #b4c0b9; border-radius: 999px; font-size: .95rem; background: #fff; transition: background .2s, color .2s, border-color .2s; }
+.chip:hover span { border-color: var(--brand); }
+.chip input:checked + span { background: var(--brand); border-color: var(--brand); color: #fff; }
+.chip input:focus-visible + span { outline: 3px solid var(--mark); outline-offset: 2px; }
+.contact-submit { justify-self: start; }
+.contact-card, .contact-card * , .contact-form-wrap, .contact-form-wrap * { text-shadow: none !important; }
+.contact-form-wrap { border-top: 0; position: relative; overflow: hidden; }
+.contact-form-wrap::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 5px; background: var(--mark); }
+@media (max-width: 860px) { .contact-layout { grid-template-columns: minmax(0, 1fr); } }
