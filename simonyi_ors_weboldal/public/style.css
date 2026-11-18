@@ -216,7 +216,7 @@ input:disabled, select:disabled { background: #e8ece9; color: var(--muted); }
 .faq-item p { margin: 0 0 18px; max-width: 60ch; color: var(--muted); }
 
 /* ---------- Bemutatkozás ---------- */
-.about-hero { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: clamp(28px, 6vw, 72px); align-items: start; padding-bottom: clamp(24px, 4vw, 48px); }
+.about-hero { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 0.9fr); gap: clamp(28px, 6vw, 72px); align-items: start; padding-bottom: clamp(24px, 4vw, 48px); }
 .about-profile-wrap { padding-top: clamp(40px, 7vw, 80px); }
 .about-profile { margin: 0; }
 .about-profile img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 15%; border-radius: 4px; }
@@ -357,3 +357,23 @@ main .hero .lead { color: var(--ink); }
 .chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .chips li { margin: 0; padding: 6px 15px; border: 1px solid rgba(230,238,233,.32); border-radius: 999px; font: 500 .93rem/1.3 var(--sans); color: var(--band-ink); transition: background .2s, color .2s, border-color .2s; }
 .chips li:hover { background: var(--mark); border-color: var(--mark); color: var(--ink); }
+
+/* Bemutatkozás: profilkártya és buborékok */
+.about-hero { align-items: center; }
+.profile-card { padding: 34px 28px 30px !important; margin-top: clamp(24px, 4vw, 48px); background: var(--band); color: var(--band-ink); border-radius: 32px 32px 32px 8px; text-align: center; box-shadow: 0 18px 40px -20px rgba(20,48,43,.6); }
+.profile-avatar { display: block; width: 168px; height: 168px; margin: 0 auto 18px; border-radius: 50%; object-fit: cover; object-position: 50% 20%; border: 4px solid var(--mark); box-shadow: 0 0 0 8px rgba(240,180,41,.2); }
+.profile-card .profile-name { font: 700 1.5rem/1.2 var(--serif); color: #fff; margin: 0 0 4px; }
+.profile-card .profile-role { margin: 0 0 16px; color: rgba(230,238,233,.8); font-size: .98rem; }
+.profile-tags { justify-content: center; margin-bottom: 22px; }
+.profile-tags li { font-size: .85rem; padding: 4px 12px; }
+.profile-link { display: inline-block; padding: 10px 22px; border-radius: 999px; background: var(--mark); color: var(--ink); font: 600 .98rem var(--sans); text-decoration: none; }
+.profile-link:hover, .profile-link:focus-visible { background: #fff; }
+.profile-card :is(h2, p, li, a) { text-shadow: none; }
+.about-bubbles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 24px; margin: 8px 0 clamp(40px, 6vw, 72px); }
+.about-bubble { padding: clamp(24px, 3vw, 36px); background: var(--panel); border: 1px solid var(--rule); border-radius: 32px 32px 32px 8px; box-shadow: 0 10px 28px -14px rgba(20,48,43,.28); }
+.about-bubble:nth-child(even) { border-radius: 32px 32px 8px 32px; }
+.about-bubble h2 { font-size: 1.45rem; margin: 0 0 14px; }
+.about-bubble p { margin: 0 0 14px; max-width: none; }
+.about-bubble p:last-child { margin-bottom: 0; }
+.about-bubble :is(h2, p) { text-shadow: none; }
+@media (max-width: 820px) { .about-hero { grid-template-columns: 1fr; } .profile-card { max-width: 380px; margin-inline: auto; } }
