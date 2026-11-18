@@ -109,7 +109,7 @@ if (bookingDate && bookingPackage && bookingTime && bookingAvailability && booki
 (function () {
   if (!('IntersectionObserver' in window)) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const sel = 'main h1, main h2, main h3, main p, main li, main dt, main dd, main label, main .btn, main .text-link, footer p, footer a, footer li';
+  const sel = 'main h1, main h2, main h3, main p, main li, main dt, main dd, main label, main .btn, main .text-link';
   const items = [...document.querySelectorAll(sel)].filter((el) => !el.closest('.nav, .topbar, form button, .admin-panel'));
   if (!items.length) return;
   document.documentElement.classList.add('js-reveal');
@@ -119,7 +119,7 @@ if (bookingDate && bookingPackage && bookingTime && bookingAvailability && booki
       e.target.classList.add('in');
       io.unobserve(e.target);
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+  }, { threshold: 0.12, rootMargin: '0px 0px 0px 0px' });
   items.forEach((el) => {
     if (el.closest('.reveal') && el.closest('.reveal') !== el) return;
     const sib = el.parentElement ? [...el.parentElement.children].indexOf(el) : 0;

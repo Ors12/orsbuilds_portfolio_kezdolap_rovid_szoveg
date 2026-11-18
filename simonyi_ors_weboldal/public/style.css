@@ -402,3 +402,8 @@ main .hero .lead { color: var(--ink); }
 mark.fill { background: #fff0b8; color: var(--ink); padding: 0 4px; border-radius: 3px; font-weight: 500; }
 .legal-page :is(h2, h3, p, li, td, th, dd) { text-shadow: none; }
 .legal-table + p, .table-wrap + p { margin-top: 18px; }
+
+/* Jogi hivatkozások a láblécben: jól látható gombok */
+.legal-links { gap: 10px 12px; padding: 4px 0 36px; border-top: 1px solid rgba(230,238,233,.16); padding-top: 20px; margin-top: 8px; }
+.legal-links a { display: inline-block; padding: 8px 18px; border: 1px solid rgba(230,238,233,.4); border-radius: 999px; color: #fff; text-decoration: none; font-weight: 500; }
+.legal-links a:hover, .legal-links a:focus-visible { background: var(--mark); border-color: var(--mark); color: var(--ink); }
