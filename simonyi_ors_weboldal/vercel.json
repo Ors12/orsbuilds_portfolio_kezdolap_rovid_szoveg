@@ -57,5 +57,17 @@
         }
       ]
     }
+  ],
+  "redirects": [
+    {
+      "source": "/tanulmanyok.html",
+      "destination": "/bemutatkozunk.html",
+      "permanent": true
+    },
+    {
+      "source": "/motivacio.html",
+      "destination": "/bemutatkozunk.html",
+      "permanent": true
+    }
   ]
 }
