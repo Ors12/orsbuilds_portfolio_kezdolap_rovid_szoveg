@@ -208,21 +208,36 @@ if (bookingDate && bookingPackage && bookingTime && bookingAvailability && booki
       track.style.transform = 'translateX(' + (-100 * i) + '%)';
       dots.forEach(function (d, j) { d.classList.toggle('on', j === i); });
     }
+    var paused = false, visible = true, idx = Array.prototype.indexOf.call(document.querySelectorAll('[data-slider]'), box);
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
     function stop() { clearInterval(timer); timer = null; }
     function start() {
-      if (timer || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
-      timer = setInterval(function () { go(i + 1); }, 1800);
+      if (timer || reduce || paused || !visible) return;
+      timer = setInterval(function () { go(i + 1); }, 3200 + idx * 500);
     }
-    box.querySelector('.ws-prev').addEventListener('click', function () { stop(); go(i - 1); });
-    box.querySelector('.ws-next').addEventListener('click', function () { stop(); go(i + 1); });
-    box.addEventListener('mouseenter', function () { go(i + 1); start(); });
-    box.addEventListener('mouseleave', function () { stop(); go(0); });
-    box.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; stop(); }, { passive: true });
+    function pause() { paused = true; stop(); }
+    function resume() { paused = false; start(); }
+    box.querySelector('.ws-prev').addEventListener('click', function () { go(i - 1); });
+    box.querySelector('.ws-next').addEventListener('click', function () { go(i + 1); });
+    box.addEventListener('mouseenter', pause);
+    box.addEventListener('mouseleave', resume);
+    box.addEventListener('focusin', pause);
+    box.addEventListener('focusout', resume);
+    box.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; pause(); }, { passive: true });
     box.addEventListener('touchend', function (e) {
-      if (x0 === null) return;
-      var dx = e.changedTouches[0].clientX - x0; x0 = null;
-      if (Math.abs(dx) > 40) go(i + (dx < 0 ? 1 : -1));
+      if (x0 !== null) {
+        var dx = e.changedTouches[0].clientX - x0; x0 = null;
+        if (Math.abs(dx) > 40) go(i + (dx < 0 ? 1 : -1));
+      }
+      setTimeout(resume, 4000);
     });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (en) {
+        visible = en[0].isIntersecting;
+        if (visible) start(); else stop();
+      }).observe(box);
+    }
     go(0);
+    start();
   });
 })();
