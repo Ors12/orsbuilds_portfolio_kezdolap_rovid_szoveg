@@ -770,15 +770,30 @@ html { scroll-padding-top: 84px; }
 @media (hover: none) { .ws-btn, .ws-dots { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .work-shot .work-slides { transition: none; } }
 
-/* Hamarosan: személyi edzői oldal */
-.soon-shot { display: grid; place-items: center; align-content: center; gap: 14px; aspect-ratio: 8 / 5; padding: 26px; color: #f3ede1; text-align: center; background: repeating-linear-gradient(135deg, rgba(255,255,255,.035) 0 2px, transparent 2px 14px), linear-gradient(160deg, #17332d, #0e211d); border-color: #0e211d; }
-.soon-shot::before { display: none; }
-.soon-art { width: min(58%, 260px); color: #f2b84b; animation: soon-lift 3.4s ease-in-out infinite; }
-.soon-art svg { display: block; width: 100%; height: auto; }
-.soon-badge { display: inline-flex; align-items: center; gap: 9px; padding: 7px 14px; border: 1px solid rgba(242,184,75,.7); border-radius: 999px; color: #f2b84b; font-weight: 700; font-size: .95rem; text-shadow: none; }
-.soon-badge i { width: 8px; height: 8px; border-radius: 50%; background: #f2b84b; animation: soon-pulse 1.6s ease-out infinite; }
-.soon-title { font-size: 1.15rem; font-weight: 600; text-shadow: none; }
-.soon-note { display: inline-block; margin-top: 4px; font-weight: 700; color: #14302b; border-bottom: 2px solid #f2b84b; }
-@keyframes soon-lift { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-@keyframes soon-pulse { 0% { box-shadow: 0 0 0 0 rgba(242,184,75,.7); } 100% { box-shadow: 0 0 0 10px rgba(242,184,75,0); } }
-@media (prefers-reduced-motion: reduce) { .soon-art, .soon-badge i { animation: none; } }
+/* Ügyfélprojekt: hamarosan */
+.client-projects { margin-bottom: clamp(48px, 7vw, 88px); }
+.client-soon { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(24px, 5vw, 64px); align-items: center; padding: clamp(28px, 5vw, 56px); border-radius: 18px; color: #eef3ee; background: radial-gradient(120% 140% at 100% 0%, #264a41 0%, rgba(38,74,65,0) 55%), #10231f; box-shadow: 0 30px 60px -34px rgba(10,28,24,.7); overflow: hidden; }
+.client-soon :is(h3, p, span, em) { text-shadow: none; }
+.client-soon h3 { color: #fff; font-size: clamp(1.9rem, 4vw, 3rem); line-height: 1.05; margin: 18px 0 14px; letter-spacing: -.01em; }
+.client-soon p { color: rgba(232,240,235,.82); max-width: 34rem; }
+.client-soon .cs-meta { margin-top: 18px; font-size: .92rem; color: rgba(232,240,235,.6); }
+.cs-badge { display: inline-flex; align-items: center; gap: 9px; padding: 7px 15px 7px 13px; border-radius: 999px; background: #f2b84b; color: #14302b; font-weight: 700; font-size: .93rem; }
+.cs-badge i { width: 8px; height: 8px; border-radius: 50%; background: #14302b; animation: cs-pulse 1.6s ease-out infinite; }
+.cs-build { border-radius: 12px; background: #f6f4ee; padding: 0 0 16px; box-shadow: 0 24px 40px -22px rgba(0,0,0,.6); transform: rotate(1.6deg); }
+.cs-bar { display: flex; gap: 6px; padding: 10px 12px; background: #dfe6e1; border-radius: 12px 12px 0 0; }
+.cs-bar b { width: 9px; height: 9px; border-radius: 50%; background: #9fb0a8; }
+.cs-hero { margin: 14px; padding: 22px 18px; border-radius: 8px; background: #14302b; display: grid; gap: 9px; }
+.cs-hero span { height: 12px; width: 70%; border-radius: 6px; background: rgba(255,255,255,.85); }
+.cs-hero span + span { width: 48%; background: rgba(255,255,255,.4); }
+.cs-hero em { width: 84px; height: 22px; border-radius: 11px; background: #f2b84b; margin-top: 6px; }
+.cs-packs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 0 14px; }
+.cs-packs div { height: 74px; border-radius: 8px; background: #e4e9e5; }
+.cs-packs div:nth-child(2) { background: #f2b84b; }
+.cs-foot { padding: 14px 14px 0; }
+.cs-foot span { display: block; height: 10px; width: 40%; border-radius: 5px; background: #cdd6d0; }
+.cs-hero, .cs-packs div, .cs-foot span { animation: cs-build 3.6s ease-in-out infinite; }
+.cs-packs div:nth-child(2) { animation-delay: .25s; } .cs-packs div:nth-child(3) { animation-delay: .5s; } .cs-foot span { animation-delay: .75s; }
+@keyframes cs-build { 0%, 12% { opacity: .35; transform: translateY(8px); } 35%, 85% { opacity: 1; transform: none; } 100% { opacity: .35; transform: translateY(8px); } }
+@keyframes cs-pulse { 0% { box-shadow: 0 0 0 0 rgba(20,48,43,.6); } 100% { box-shadow: 0 0 0 10px rgba(20,48,43,0); } }
+@media (max-width: 800px) { .client-soon { grid-template-columns: 1fr; } .cs-build { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .cs-hero, .cs-packs div, .cs-foot span, .cs-badge i { animation: none; } }
