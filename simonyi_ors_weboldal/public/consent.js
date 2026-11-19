@@ -2,7 +2,7 @@
 // Jelenleg az oldal csak a működéshez szükséges adatokat használ; nem szükséges (pl. statisztikai) szolgáltatás
 // kizárólag akkor indulhat el, ha window.ORS_CONSENT.analytics === true.
 (function () {
-  const KEY = 'orsbuilds-consent';
+  const KEY = 'orsbuilds-consent-v2';
   const read = () => { try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { return null; } };
   const write = (v) => { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch (e) { /* nincs tárolás */ } };
   const saved = read();
