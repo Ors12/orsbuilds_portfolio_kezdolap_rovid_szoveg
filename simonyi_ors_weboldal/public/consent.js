@@ -10,38 +10,23 @@
 
   let banner = null;
   function close() { if (banner) { banner.remove(); banner = null; } }
-  function choose(analytics) {
-    write({ analytics, at: new Date().toISOString() });
-    window.ORS_CONSENT.analytics = analytics;
-    document.dispatchEvent(new CustomEvent('orsbuilds:consent', { detail: window.ORS_CONSENT }));
-    close();
-  }
   function open() {
     if (banner) return;
     banner = document.createElement('div');
     banner.className = 'cookie-bar';
     banner.setAttribute('role', 'dialog');
-    banner.setAttribute('aria-labelledby', 'consent-title');
-    banner.innerHTML = '<h2 id="consent-title">Sütik és adatkezelés</h2>'
-      + '<p>Az oldal jelenleg csak a működéshez szükséges adatokat használja, követés nélkül. Ha később statisztikai szolgáltatást építek be, az csak a te engedélyeddel indul el.</p>'
-      + '<p><a href="adatkezelesi-tajekoztato.html#sutik">Részletek a tájékoztatóban</a></p>'
-      + '<div class="cookie-actions"><button type="button" class="btn cookie-accept">Elfogadom</button>'
-      + '<button type="button" class="btn secondary cookie-necessary">Csak a szükségesek</button></div>';
-    banner.querySelector('.cookie-accept').addEventListener('click', () => choose(true));
-    banner.querySelector('.cookie-necessary').addEventListener('click', () => choose(false));
+    banner.setAttribute('aria-label', 'Süti és adatkezelés');
+    banner.innerHTML = '<p>Az oldal csak a működéshez szükséges adatokat használja, követés nélkül. <a href="adatkezelesi-tajekoztato.html#sutik">Részletek</a></p>'
+      + '<button type="button" class="btn cookie-accept">Elfogadom</button>';
+    banner.querySelector('.cookie-accept').addEventListener('click', () => {
+      write({ acknowledged: true, analytics: false, at: new Date().toISOString() });
+      close();
+    });
     document.body.appendChild(banner);
   }
   function init() {
-    const links = document.querySelector('.legal-links');
-    if (links) {
-      const b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'legal-link-btn';
-      b.textContent = 'Sütibeállítások';
-      b.addEventListener('click', open);
-      links.appendChild(b);
-    }
-    if (!saved) open();
+    // Nem egyből jelenik meg: az oldal betöltése után néhány másodperccel
+    if (!saved) setTimeout(open, 5000);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();

@@ -303,7 +303,10 @@ window.ORS_I18N = {
 "Részletek a tájékoztatóban": "Details in the privacy notice",
 "Elfogadom": "Accept",
 "Csak a szükségesek": "Necessary only",
-"Sütibeállítások": "Cookie settings"
+"Sütibeállítások": "Cookie settings",
+"Az oldal csak a működéshez szükséges adatokat használja, követés nélkül.": "This site uses only the data needed for it to work, with no tracking.",
+"Részletek": "Details",
+"Süti és adatkezelés": "Cookies and data"
 },
 "de": {
 "Bemutatkozunk | orsbuilds": "Über uns | orsbuilds",
@@ -609,7 +612,10 @@ window.ORS_I18N = {
 "Részletek a tájékoztatóban": "Details in der Datenschutzerklärung",
 "Elfogadom": "Akzeptieren",
 "Csak a szükségesek": "Nur notwendige",
-"Sütibeállítások": "Cookie-Einstellungen"
+"Sütibeállítások": "Cookie-Einstellungen",
+"Az oldal csak a működéshez szükséges adatokat használja, követés nélkül.": "Diese Website verwendet nur die für den Betrieb nötigen Daten, ohne Tracking.",
+"Részletek": "Details",
+"Süti és adatkezelés": "Cookies und Datenverarbeitung"
 },
 "notice": {
 "en": "The legal documents (Terms & Conditions, Privacy notice) are valid in Hungarian only.",
