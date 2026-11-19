@@ -187,13 +187,12 @@ if (bookingDate && bookingPackage && bookingTime && bookingAvailability && booki
 
 // "Három lépés az ajánlatig": a lépések egymás után, a vonalak rajzolódásával jelennek meg
 (function () {
-  const path = document.querySelector('.path');
-  if (!path) return;
+  const paths = document.querySelectorAll('.path');
+  if (!paths.length) return;
   const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduce || !('IntersectionObserver' in window)) return;
-  path.classList.add('anim');
   const io = new IntersectionObserver((entries) => {
-    if (entries.some((e) => e.isIntersecting)) { path.classList.add('in'); io.disconnect(); }
-  }, { threshold: 0.35 });
-  io.observe(path);
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.3 });
+  paths.forEach((path) => { path.classList.add('anim'); io.observe(path); });
 })();

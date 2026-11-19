@@ -709,3 +709,33 @@ mark.fill { background: #fff0b8; color: var(--ink); padding: 0 4px; border-radiu
 .reason-prices, .reason-prices * { text-shadow: none !important; }
 html { scroll-padding-top: 84px; }
 .path, .path * , .path li::before { text-shadow: none !important; }
+
+.path li > span { display: block; }
+/* Öt lépéses változat (kezdőlap) */
+.path-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0 20px; }
+.path-5 li { font-size: .96rem; line-height: 1.55; }
+.path-5 li strong { font-size: 1.12rem; }
+.path-5 li:not(:last-child)::after { right: -10px; }
+.path.anim.path-5 li:nth-child(1)::before { transition-delay: 0s; }
+.path.anim.path-5 li:nth-child(1) > * { transition-delay: .2s; }
+.path.anim.path-5 li:nth-child(1)::after { transition-delay: .4s; }
+.path.anim.path-5 li:nth-child(2)::before { transition-delay: .8s; }
+.path.anim.path-5 li:nth-child(2) > * { transition-delay: 1s; }
+.path.anim.path-5 li:nth-child(2)::after { transition-delay: 1.2s; }
+.path.anim.path-5 li:nth-child(3)::before { transition-delay: 1.6s; }
+.path.anim.path-5 li:nth-child(3) > * { transition-delay: 1.8s; }
+.path.anim.path-5 li:nth-child(3)::after { transition-delay: 2s; }
+.path.anim.path-5 li:nth-child(4)::before { transition-delay: 2.4s; }
+.path.anim.path-5 li:nth-child(4) > * { transition-delay: 2.6s; }
+.path.anim.path-5 li:nth-child(4)::after { transition-delay: 2.8s; }
+.path.anim.path-5 li:nth-child(5)::before { transition-delay: 3.2s; }
+.path.anim.path-5 li:nth-child(5) > * { transition-delay: 3.4s; }
+.process-section .actions { margin-top: 40px; }
+@media (max-width: 1000px) {
+  .path-5 { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .path-5 li { padding: 4px 0 40px 84px; min-height: 60px; font-size: 1.02rem; }
+  .path-5 li:last-child { padding-bottom: 0; }
+  .path-5 li:not(:last-child)::after { top: 62px; bottom: -2px; left: 28px; right: auto; width: 4px; height: auto; background: linear-gradient(180deg, var(--mark), var(--brand)); transform-origin: center top; }
+  .path.anim.path-5 li:not(:last-child)::after { transform: scaleY(0); }
+  .path.anim.in.path-5 li:not(:last-child)::after { transform: scaleY(1); }
+}
