@@ -184,3 +184,16 @@ if (bookingDate && bookingPackage && bookingTime && bookingAvailability && booki
     idBox.hidden = false;
   }
 })();
+
+// "Három lépés az ajánlatig": a lépések egymás után, a vonalak rajzolódásával jelennek meg
+(function () {
+  const path = document.querySelector('.path');
+  if (!path) return;
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !('IntersectionObserver' in window)) return;
+  path.classList.add('anim');
+  const io = new IntersectionObserver((entries) => {
+    if (entries.some((e) => e.isIntersecting)) { path.classList.add('in'); io.disconnect(); }
+  }, { threshold: 0.35 });
+  io.observe(path);
+})();
