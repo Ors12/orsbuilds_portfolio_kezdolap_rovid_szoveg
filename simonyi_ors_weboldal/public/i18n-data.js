@@ -297,7 +297,13 @@ window.ORS_I18N = {
 "Pár perc alatt kiválasztod az időpontot, és megbeszéljük, hogyan segíthetek.": "In a few minutes you pick a time, and we discuss how I can help.",
 "Inkább üzenetet írok": "I'd rather send a message",
 "Az árak nyíltak, és minden munka előtt személyre szabott, kötelezettségmentes ajánlatot kapsz. A domain és a webtárhely díja is benne van az árban, így nincsenek rejtett költségek.": "Prices are open, and before any work you get a tailored, no-obligation quote. The domain and web hosting are included in the price too, so there are no hidden costs.",
-"A feltüntetett összegek tájékoztató jellegű induló árak. A végleges díj az igényektől és a szükséges funkcióktól függ. A domain és a webtárhely díja benne van az árban; más külső szolgáltatások (például fizetési szolgáltató, stock képek, licencek) díja nem része a fejlesztési árnak. A havi karbantartás pontos tartalmát előre egyeztetjük; minden munka előtt személyre szabott, kötelezettségmentes ajánlatot adok.": "The amounts shown are indicative starting prices. The final fee depends on your needs and the required features. The domain and web hosting are included in the price; the cost of other external services (e.g. payment provider, stock images, licences) is not part of the development price. We agree the exact scope of monthly maintenance in advance; before any work I give a tailored, no-obligation quote."
+"A feltüntetett összegek tájékoztató jellegű induló árak. A végleges díj az igényektől és a szükséges funkcióktól függ. A domain és a webtárhely díja benne van az árban; más külső szolgáltatások (például fizetési szolgáltató, stock képek, licencek) díja nem része a fejlesztési árnak. A havi karbantartás pontos tartalmát előre egyeztetjük; minden munka előtt személyre szabott, kötelezettségmentes ajánlatot adok.": "The amounts shown are indicative starting prices. The final fee depends on your needs and the required features. The domain and web hosting are included in the price; the cost of other external services (e.g. payment provider, stock images, licences) is not part of the development price. We agree the exact scope of monthly maintenance in advance; before any work I give a tailored, no-obligation quote.",
+"Sütik és adatkezelés": "Cookies and data",
+"Az oldal jelenleg csak a működéshez szükséges adatokat használja, követés nélkül. Ha később statisztikai szolgáltatást építek be, az csak a te engedélyeddel indul el.": "This site currently uses only the data needed for it to work, with no tracking. If I add an analytics service later, it will only start with your permission.",
+"Részletek a tájékoztatóban": "Details in the privacy notice",
+"Elfogadom": "Accept",
+"Csak a szükségesek": "Necessary only",
+"Sütibeállítások": "Cookie settings"
 },
 "de": {
 "Bemutatkozunk | orsbuilds": "Über uns | orsbuilds",
@@ -597,7 +603,13 @@ window.ORS_I18N = {
 "Pár perc alatt kiválasztod az időpontot, és megbeszéljük, hogyan segíthetek.": "In wenigen Minuten wählst du einen Termin, und wir besprechen, wie ich helfen kann.",
 "Inkább üzenetet írok": "Ich schreibe lieber eine Nachricht",
 "Az árak nyíltak, és minden munka előtt személyre szabott, kötelezettségmentes ajánlatot kapsz. A domain és a webtárhely díja is benne van az árban, így nincsenek rejtett költségek.": "Die Preise sind offen, und vor jeder Arbeit erhältst du ein persönliches, unverbindliches Angebot. Auch Domain und Webhosting sind im Preis enthalten, es gibt also keine versteckten Kosten.",
-"A feltüntetett összegek tájékoztató jellegű induló árak. A végleges díj az igényektől és a szükséges funkcióktól függ. A domain és a webtárhely díja benne van az árban; más külső szolgáltatások (például fizetési szolgáltató, stock képek, licencek) díja nem része a fejlesztési árnak. A havi karbantartás pontos tartalmát előre egyeztetjük; minden munka előtt személyre szabott, kötelezettségmentes ajánlatot adok.": "Die angegebenen Beträge sind unverbindliche Einstiegspreise. Das endgültige Honorar hängt von deinem Bedarf und den nötigen Funktionen ab. Domain und Webhosting sind im Preis enthalten; die Kosten anderer externer Dienste (z. B. Zahlungsanbieter, Stockfotos, Lizenzen) gehören nicht zum Entwicklungspreis. Den genauen Umfang der monatlichen Wartung stimmen wir vorher ab; vor jeder Arbeit gebe ich ein persönliches, unverbindliches Angebot."
+"A feltüntetett összegek tájékoztató jellegű induló árak. A végleges díj az igényektől és a szükséges funkcióktól függ. A domain és a webtárhely díja benne van az árban; más külső szolgáltatások (például fizetési szolgáltató, stock képek, licencek) díja nem része a fejlesztési árnak. A havi karbantartás pontos tartalmát előre egyeztetjük; minden munka előtt személyre szabott, kötelezettségmentes ajánlatot adok.": "Die angegebenen Beträge sind unverbindliche Einstiegspreise. Das endgültige Honorar hängt von deinem Bedarf und den nötigen Funktionen ab. Domain und Webhosting sind im Preis enthalten; die Kosten anderer externer Dienste (z. B. Zahlungsanbieter, Stockfotos, Lizenzen) gehören nicht zum Entwicklungspreis. Den genauen Umfang der monatlichen Wartung stimmen wir vorher ab; vor jeder Arbeit gebe ich ein persönliches, unverbindliches Angebot.",
+"Sütik és adatkezelés": "Cookies und Datenverarbeitung",
+"Az oldal jelenleg csak a működéshez szükséges adatokat használja, követés nélkül. Ha később statisztikai szolgáltatást építek be, az csak a te engedélyeddel indul el.": "Diese Website verwendet derzeit nur die für den Betrieb nötigen Daten, ohne Tracking. Sollte ich später einen Statistikdienst einbauen, startet er nur mit deiner Erlaubnis.",
+"Részletek a tájékoztatóban": "Details in der Datenschutzerklärung",
+"Elfogadom": "Akzeptieren",
+"Csak a szükségesek": "Nur notwendige",
+"Sütibeállítások": "Cookie-Einstellungen"
 },
 "notice": {
 "en": "The legal documents (Terms & Conditions, Privacy notice) are valid in Hungarian only.",
