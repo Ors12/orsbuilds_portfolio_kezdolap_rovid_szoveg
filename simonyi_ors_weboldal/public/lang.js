@@ -125,7 +125,9 @@
     applyTo(document.body);
     applyMeta();
     notice();
-    document.querySelectorAll('.lang-switch button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === next)));
+    document.querySelectorAll('.lang-menu button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === next)));
+    const cur = document.querySelector('.lang-current');
+    if (cur) cur.textContent = next.toUpperCase();
     if (persist) write(next);
   }
 
@@ -134,22 +136,33 @@
     if (!nav) return;
     const box = document.createElement('div');
     box.className = 'lang-switch';
-    box.setAttribute('role', 'group');
-    box.setAttribute('aria-label', 'Nyelv / Language / Sprache');
     box.setAttribute('translate', 'no');
-    box.innerHTML = '<svg class="lang-globe" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.7 4 5.7 4 9s-1.4 6.3-4 9c-2.6-2.7-4-5.7-4-9s1.400-6.3 4-9z"/></svg>';
+    box.innerHTML = '<button class="lang-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Nyelv / Language / Sprache">'
+      + '<svg class="lang-globe" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.7 4 5.7 4 9s-1.4 6.3-4 9c-2.6-2.7-4-5.7-4-9s1.4-6.3 4-9z"/></svg>'
+      + '<span class="lang-current">HU</span><span class="lang-caret" aria-hidden="true">⌄</span></button>'
+      + '<ul class="lang-menu" hidden></ul>';
+    const toggle = box.querySelector('.lang-toggle');
+    const menu = box.querySelector('.lang-menu');
+    const close = () => { menu.hidden = true; toggle.setAttribute('aria-expanded', 'false'); };
     LANGS.forEach((l) => {
+      const li = document.createElement('li');
       const b = document.createElement('button');
       b.type = 'button';
       b.dataset.lang = l.code;
-      b.textContent = l.label;
-      b.title = l.name;
       b.lang = l.code;
-      b.setAttribute('aria-label', l.name);
       b.setAttribute('aria-pressed', 'false');
-      b.addEventListener('click', () => setLang(l.code, true));
-      box.appendChild(b);
+      b.innerHTML = `<span class="lang-code">${l.label}</span><span>${l.name}</span>`;
+      b.addEventListener('click', () => { setLang(l.code, true); close(); toggle.focus(); });
+      li.appendChild(b);
+      menu.appendChild(li);
     });
+    toggle.addEventListener('click', () => {
+      const open = menu.hidden;
+      menu.hidden = !open;
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+    document.addEventListener('click', (e) => { if (!box.contains(e.target)) close(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
     nav.appendChild(box);
   }
 
