@@ -58,7 +58,7 @@ strong { font-weight: 600; }
 .skip-link:focus { top: 12px; }
 
 /* ---------- Fejléc ---------- */
-.topbar { background: var(--band); position: relative; z-index: 50; }
+.topbar { background: var(--band); position: sticky; top: 0; z-index: 50; }
 .topbar .nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 68px; }
 .brand-image img { height: 38px; width: auto; }
 .menu { display: none; background: none; border: 1px solid rgba(230,238,233,.4); color: var(--band-ink); font: 500 .95rem var(--sans); padding: 8px 14px; border-radius: 4px; cursor: pointer; }
@@ -687,3 +687,4 @@ mark.fill { background: #fff0b8; color: var(--ink); padding: 0 4px; border-radiu
   .path li:not(:last-child)::after { display: none; }
 }
 .reason-prices, .reason-prices * { text-shadow: none !important; }
+html { scroll-padding-top: 84px; }
