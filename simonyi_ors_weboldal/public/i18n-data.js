@@ -214,7 +214,6 @@ window.ORS_I18N = {
 "10 000 Ft/hó-tól": "From HUF 10,000/month",
 "Előző szolgáltatások": "Previous services",
 "Következő szolgáltatások": "Next services",
-"A feltüntetett összegek tájékoztató jellegű induló árak. A végleges díj az igényektől és a szükséges funkcióktól függ. A domain, a tárhely és más külső szolgáltatások díja nem része a fejlesztési árnak. A havi karbantartás pontos tartalmát előre egyeztetjük; minden munka előtt személyre szabott, kötelezettségmentes ajánlatot adok.": "The amounts shown are indicative starting prices. The final fee depends on your needs and the required features. The cost of the domain, hosting and other external services is not part of the development price. We agree the exact scope of monthly maintenance in advance; before any work I give a tailored, no-obligation quote.",
 "Időpontfoglalás": "Book an appointment",
 "Válassz szolgáltatást és egy szabad időpontot. A foglalásról e-mailben visszaigazolást küldünk.": "Choose a service and a free time slot. We'll send you a confirmation by e-mail.",
 "Szolgáltatás és időpont": "Service and time",
@@ -278,7 +277,6 @@ window.ORS_I18N = {
 "Egy kapcsolattartó, a legelejétől": "One contact person, from the very start",
 "Ugyanaz a személy hallgatja meg az elképzelésedet, tervezi meg az oldalt és válaszol a kérdéseidre. Nem kell elmagyaráznod ugyanazt háromszor.": "The same person listens to your ideas, designs the site and answers your questions. You don't have to explain the same thing three times.",
 "Előre tudod, mibe kerül": "You know the cost up front",
-"Az árak nyíltak, és minden munka előtt személyre szabott, kötelezettségmentes ajánlatot kapsz. A domain és a tárhely díja külön tétel, ezt előre elmondom.": "Prices are open, and before any work you get a tailored, no-obligation quote. The domain and hosting are a separate cost, which I tell you about in advance.",
 "portfólió weboldal": "portfolio website",
 "többoldalas weboldal": "multi-page website",
 "webshop": "web shop",
@@ -297,7 +295,9 @@ window.ORS_I18N = {
 "Személyre szabottat, a beszélgetés alapján.": "A tailored one, based on our conversation.",
 "Kezdjük egy beszélgetéssel.": "Let's start with a conversation.",
 "Pár perc alatt kiválasztod az időpontot, és megbeszéljük, hogyan segíthetek.": "In a few minutes you pick a time, and we discuss how I can help.",
-"Inkább üzenetet írok": "I'd rather send a message"
+"Inkább üzenetet írok": "I'd rather send a message",
+"Az árak nyíltak, és minden munka előtt személyre szabott, kötelezettségmentes ajánlatot kapsz. A domain és a webtárhely díja is benne van az árban, így nincsenek rejtett költségek.": "Prices are open, and before any work you get a tailored, no-obligation quote. The domain and web hosting are included in the price too, so there are no hidden costs.",
+"A feltüntetett összegek tájékoztató jellegű induló árak. A végleges díj az igényektől és a szükséges funkcióktól függ. A domain és a webtárhely díja benne van az árban; más külső szolgáltatások (például fizetési szolgáltató, stock képek, licencek) díja nem része a fejlesztési árnak. A havi karbantartás pontos tartalmát előre egyeztetjük; minden munka előtt személyre szabott, kötelezettségmentes ajánlatot adok.": "The amounts shown are indicative starting prices. The final fee depends on your needs and the required features. The domain and web hosting are included in the price; the cost of other external services (e.g. payment provider, stock images, licences) is not part of the development price. We agree the exact scope of monthly maintenance in advance; before any work I give a tailored, no-obligation quote."
 },
 "de": {
 "Bemutatkozunk | orsbuilds": "Über uns | orsbuilds",
@@ -514,7 +514,6 @@ window.ORS_I18N = {
 "10 000 Ft/hó-tól": "Ab 10.000 Ft/Monat",
 "Előző szolgáltatások": "Vorherige Leistungen",
 "Következő szolgáltatások": "Nächste Leistungen",
-"A feltüntetett összegek tájékoztató jellegű induló árak. A végleges díj az igényektől és a szükséges funkcióktól függ. A domain, a tárhely és más külső szolgáltatások díja nem része a fejlesztési árnak. A havi karbantartás pontos tartalmát előre egyeztetjük; minden munka előtt személyre szabott, kötelezettségmentes ajánlatot adok.": "Die angegebenen Beträge sind unverbindliche Einstiegspreise. Das endgültige Honorar hängt von deinem Bedarf und den nötigen Funktionen ab. Kosten für Domain, Hosting und andere externe Dienste sind nicht im Entwicklungspreis enthalten. Den genauen Umfang der monatlichen Wartung stimmen wir vorher ab; vor jeder Arbeit gebe ich ein persönliches, unverbindliches Angebot.",
 "Időpontfoglalás": "Terminbuchung",
 "Válassz szolgáltatást és egy szabad időpontot. A foglalásról e-mailben visszaigazolást küldünk.": "Wähle eine Leistung und einen freien Termin. Die Buchung bestätigen wir dir per E-Mail.",
 "Szolgáltatás és időpont": "Leistung und Termin",
@@ -578,7 +577,6 @@ window.ORS_I18N = {
 "Egy kapcsolattartó, a legelejétől": "Ein Ansprechpartner, von Anfang an",
 "Ugyanaz a személy hallgatja meg az elképzelésedet, tervezi meg az oldalt és válaszol a kérdéseidre. Nem kell elmagyaráznod ugyanazt háromszor.": "Dieselbe Person hört sich deine Vorstellungen an, plant die Seite und beantwortet deine Fragen. Du musst nicht dreimal dasselbe erklären.",
 "Előre tudod, mibe kerül": "Du weißt vorher, was es kostet",
-"Az árak nyíltak, és minden munka előtt személyre szabott, kötelezettségmentes ajánlatot kapsz. A domain és a tárhely díja külön tétel, ezt előre elmondom.": "Die Preise sind offen, und vor jeder Arbeit erhältst du ein persönliches, unverbindliches Angebot. Domain und Hosting sind ein separater Posten, das sage ich dir vorher.",
 "portfólió weboldal": "Portfolio-Website",
 "többoldalas weboldal": "mehrseitige Website",
 "webshop": "Webshop",
@@ -597,7 +595,9 @@ window.ORS_I18N = {
 "Személyre szabottat, a beszélgetés alapján.": "Ein maßgeschneidertes, basierend auf unserem Gespräch.",
 "Kezdjük egy beszélgetéssel.": "Beginnen wir mit einem Gespräch.",
 "Pár perc alatt kiválasztod az időpontot, és megbeszéljük, hogyan segíthetek.": "In wenigen Minuten wählst du einen Termin, und wir besprechen, wie ich helfen kann.",
-"Inkább üzenetet írok": "Ich schreibe lieber eine Nachricht"
+"Inkább üzenetet írok": "Ich schreibe lieber eine Nachricht",
+"Az árak nyíltak, és minden munka előtt személyre szabott, kötelezettségmentes ajánlatot kapsz. A domain és a webtárhely díja is benne van az árban, így nincsenek rejtett költségek.": "Die Preise sind offen, und vor jeder Arbeit erhältst du ein persönliches, unverbindliches Angebot. Auch Domain und Webhosting sind im Preis enthalten, es gibt also keine versteckten Kosten.",
+"A feltüntetett összegek tájékoztató jellegű induló árak. A végleges díj az igényektől és a szükséges funkcióktól függ. A domain és a webtárhely díja benne van az árban; más külső szolgáltatások (például fizetési szolgáltató, stock képek, licencek) díja nem része a fejlesztési árnak. A havi karbantartás pontos tartalmát előre egyeztetjük; minden munka előtt személyre szabott, kötelezettségmentes ajánlatot adok.": "Die angegebenen Beträge sind unverbindliche Einstiegspreise. Das endgültige Honorar hängt von deinem Bedarf und den nötigen Funktionen ab. Domain und Webhosting sind im Preis enthalten; die Kosten anderer externer Dienste (z. B. Zahlungsanbieter, Stockfotos, Lizenzen) gehören nicht zum Entwicklungspreis. Den genauen Umfang der monatlichen Wartung stimmen wir vorher ab; vor jeder Arbeit gebe ich ein persönliches, unverbindliches Angebot."
 },
 "notice": {
 "en": "The legal documents (Terms & Conditions, Privacy notice) are valid in Hungarian only.",
