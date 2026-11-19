@@ -752,3 +752,20 @@ html { scroll-padding-top: 84px; }
 .legal-link-btn { font: inherit; cursor: pointer; background: none; }
 .legal-links .legal-link-btn { display: inline-block; padding: 8px 18px; border: 1px solid rgba(230,238,233,.4); border-radius: 999px; color: #fff; font-weight: 500; font-size: inherit; line-height: inherit; }
 .legal-links .legal-link-btn:hover, .legal-links .legal-link-btn:focus-visible { background: var(--mark); border-color: var(--mark); color: var(--ink); }
+
+/* Lapozható minta-oldal kártyák */
+.work-shot { position: relative; }
+.work-shot .work-slides { display: flex; transition: transform .45s cubic-bezier(.2,.7,.2,1); will-change: transform; }
+.work-shot .work-slides img { flex: 0 0 100%; min-width: 0; }
+.work-shot:hover img { opacity: 1; }
+.ws-btn { position: absolute; top: calc(50% + 13px); transform: translateY(-50%); width: 40px; height: 40px; border: 0; border-radius: 50%; background: rgba(20,48,43,.88); color: #fff; font-size: 26px; line-height: 1; cursor: pointer; opacity: 0; transition: opacity .2s, background .2s; display: grid; place-items: center; padding: 0 0 3px; }
+.ws-prev { left: 10px; } .ws-next { right: 10px; }
+.work-shot:hover .ws-btn, .work-shot:focus-within .ws-btn { opacity: 1; }
+.ws-btn:hover { background: #14302b; }
+.ws-btn:focus-visible { outline: 3px solid #f2b84b; outline-offset: 2px; }
+.ws-dots { position: absolute; left: 0; right: 0; bottom: 10px; display: flex; justify-content: center; gap: 7px; pointer-events: none; opacity: 0; transition: opacity .2s; }
+.work-shot:hover .ws-dots, .work-shot:focus-within .ws-dots { opacity: 1; }
+.ws-dots i { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.65); box-shadow: 0 0 0 1px rgba(20,48,43,.5); }
+.ws-dots i.on { background: #14302b; box-shadow: 0 0 0 1px #fff; }
+@media (hover: none) { .ws-btn, .ws-dots { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .work-shot .work-slides { transition: none; } }

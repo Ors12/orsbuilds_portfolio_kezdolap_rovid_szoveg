@@ -196,3 +196,33 @@ if (bookingDate && bookingPackage && bookingTime && bookingAvailability && booki
   }, { threshold: 0.3 });
   paths.forEach((path) => { path.classList.add('anim'); io.observe(path); });
 })();
+
+/* Lapozható minta-oldal kártyák */
+(function () {
+  document.querySelectorAll('[data-slider]').forEach(function (box) {
+    var track = box.querySelector('.work-slides');
+    var n = track.children.length, i = 0, timer = null, x0 = null;
+    var dots = box.querySelectorAll('.ws-dots i');
+    function go(k) {
+      i = (k + n) % n;
+      track.style.transform = 'translateX(' + (-100 * i) + '%)';
+      dots.forEach(function (d, j) { d.classList.toggle('on', j === i); });
+    }
+    function stop() { clearInterval(timer); timer = null; }
+    function start() {
+      if (timer || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+      timer = setInterval(function () { go(i + 1); }, 1800);
+    }
+    box.querySelector('.ws-prev').addEventListener('click', function () { stop(); go(i - 1); });
+    box.querySelector('.ws-next').addEventListener('click', function () { stop(); go(i + 1); });
+    box.addEventListener('mouseenter', function () { go(i + 1); start(); });
+    box.addEventListener('mouseleave', function () { stop(); go(0); });
+    box.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; stop(); }, { passive: true });
+    box.addEventListener('touchend', function (e) {
+      if (x0 === null) return;
+      var dx = e.changedTouches[0].clientX - x0; x0 = null;
+      if (Math.abs(dx) > 40) go(i + (dx < 0 ? 1 : -1));
+    });
+    go(0);
+  });
+})();
